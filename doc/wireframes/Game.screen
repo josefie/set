@@ -26,26 +26,16 @@
   <widgets xsi:type="model:Button" id="35" x="961" y="445" width="195" height="57" text="New Game" measuredWidth="195" measuredHeight="57">
     <font size="16px"/>
   </widgets>
-  <widgets xsi:type="model:Text" id="59" x="1288" y="139" text="Messages:&#xA;* New game -> Good luck!&#xA;* Set matches -> Great, you found a set!&#xA;* Set does not match: Nope, sorry...&#xA;* All cards used and no set is available anymore -> Congratulations, you win the game! You needed ... minutes and ... attempts and found ... sets!&#xA;* Some time elapsed without set found -> Do you need help? (Link to help section?)" measuredWidth="766" measuredHeight="96">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:Panel" id="64" x="1351" y="421" width="400" height="348" measuredWidth="400" measuredHeight="348" background="black" alpha="128" border="none"/>
-  <widgets xsi:type="model:TextArea" id="68" x="1384" y="456" width="329" height="273" measuredWidth="329" measuredHeight="273">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:Text" id="66" x="1407" y="511" width="283" height="146" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." measuredWidth="283" measuredHeight="146">
-    <font/>
-  </widgets>
   <widgets xsi:type="model:VButtonBar" id="69" x="963" y="584" width="193" height="121" text="View Instructions&#xA;Add more cards&#xA;Give me a hint" measuredWidth="193" measuredHeight="121" selection="0">
     <font/>
-    <items x="0" y="0" width="193" height="39" text="View Instructions"/>
+    <items link="Instructions.screen" x="0" y="0" width="193" height="39" text="View Instructions"/>
     <items x="0" y="39" width="193" height="38" text="Add more cards"/>
     <items x="0" y="77" width="193" height="44" text="Give me a hint"/>
   </widgets>
   <widgets xsi:type="model:Label" id="70" x="961" y="528" text="Need help?" measuredWidth="133" measuredHeight="41">
     <font size="25px"/>
   </widgets>
-  <widgets xsi:type="model:Text" id="71" x="963" y="306" width="193" text="Time: 03:22&#xA;Sets: 4&#xA;Attempts: 13&#xA;Cards left: 36" measuredWidth="193" measuredHeight="104">
+  <widgets xsi:type="model:Text" id="71" x="963" y="306" width="193" text="Sets: 4&#xA;Time: 03:22&#xA;Attempts: 13&#xA;Cards left: 36" measuredWidth="193" measuredHeight="104">
     <font size="20px"/>
   </widgets>
   <widgets xsi:type="model:Label" id="72" x="961" y="249" text="Your game" measuredWidth="124" measuredHeight="41">
@@ -53,28 +43,27 @@
   </widgets>
   <widgets xsi:type="model:TextArea" id="73" x="961" y="168" width="195" height="52" text="Message Container" measuredWidth="195" measuredHeight="52">
     <font size="16px"/>
+    <note>Messages:
+* New game -> Good luck!
+* Set matches -> Great, you found a set!
+* Set does not match: Nope, sorry...
+* All cards used and no set is available anymore -> Congratulations, you win the game! You needed ... minutes and ... attempts and found ... sets!
+* Some time elapsed without set found -> Do you need help? (Link to help section?)</note>
   </widgets>
-  <widgets xsi:type="model:Label" id="74" x="1407" y="473" text="Instructions" measuredWidth="138" measuredHeight="41">
-    <font size="25px"/>
-  </widgets>
-  <widgets xsi:type="model:Button" id="75" x="1640" y="672" text="OK" measuredWidth="37" measuredHeight="26">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:Arrow" id="76" x="1160" y="536" width="202" height="65" measuredWidth="202" measuredHeight="65" left="false" right="true" direction="bottom"/>
-  <widgets xsi:type="model:Arrow" id="77" x="1145" y="153" width="127" height="33" measuredWidth="127" measuredHeight="33" direction="bottom"/>
   <widgets xsi:type="model:Callout" id="78" x="1084" y="631" text="1" measuredWidth="26" measuredHeight="26">
     <font bold="true"/>
-  </widgets>
-  <widgets xsi:type="model:Note" id="79" x="1405" y="283" text="1: Adds 3 random cards to the game" measuredWidth="207" measuredHeight="30">
-    <font/>
+    <note>Adds 3 random cards to the game</note>
   </widgets>
   <widgets xsi:type="model:Callout" id="80" x="1080" y="672" text="2" measuredWidth="26" measuredHeight="26">
     <font bold="true"/>
+    <note>Marks a set in the game</note>
   </widgets>
-  <widgets xsi:type="model:Note" id="82" x="1407" y="320" text="2: Marks a set in the game" measuredWidth="154" measuredHeight="30">
+  <widgets xsi:type="model:Button" id="84" x="1093" y="306" width="63" text="View sets" measuredWidth="63" measuredHeight="26" link="Your_Sets.screen">
     <font/>
   </widgets>
-  <hRuler/>
+  <hRuler>
+    <guides position="308"/>
+  </hRuler>
   <vRuler/>
   <font size="12px"/>
 </model:Screen>

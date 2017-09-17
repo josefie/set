@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Panel" id="7" x="448" y="64" width="761" height="705" measuredWidth="761" measuredHeight="705"/>
+  <widgets xsi:type="model:Panel" id="8" x="448" y="64" width="761" height="63" measuredWidth="761" measuredHeight="63"/>
+  <widgets xsi:type="model:Panel" id="9" x="528" y="168" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="10" x="624" y="168" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="11" x="720" y="168" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="12" x="816" y="168" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="13" x="528" y="296" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="14" x="624" y="296" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="15" x="720" y="296" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="16" x="816" y="296" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="17" x="528" y="424" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="18" x="624" y="424" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="19" x="720" y="424" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Panel" id="20" x="816" y="424" width="70" measuredWidth="70" measuredHeight="100"/>
+  <widgets xsi:type="model:Text" id="21" x="536" y="186" text="three&#xA;blue&#xA;solid&#xA;rectangles" measuredWidth="54" measuredHeight="64">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Text" id="22" x="637" y="186" text="one&#xA;yellow&#xA;granular&#xA;wave" measuredWidth="44" measuredHeight="64">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="23" x="808" y="64" text="Set" measuredWidth="68" measuredHeight="63">
+    <font size="43px"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="24" x="961" y="445" width="195" height="57" text="New Game" measuredWidth="195" measuredHeight="57">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:VButtonBar" id="25" x="963" y="584" width="193" height="121" text="View Instructions&#xA;Add more cards&#xA;Give me a hint" measuredWidth="193" measuredHeight="121" selection="0">
+    <font/>
+    <items x="0" y="0" width="193" height="39" text="View Instructions"/>
+    <items x="0" y="39" width="193" height="38" text="Add more cards"/>
+    <items x="0" y="77" width="193" height="44" text="Give me a hint"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="26" x="961" y="528" text="Need help?" measuredWidth="133" measuredHeight="41">
+    <font size="25px"/>
+  </widgets>
+  <widgets xsi:type="model:Text" id="27" x="963" y="306" width="193" text="Sets: 4&#xA;Time: 03:22&#xA;Attempts: 13&#xA;Cards left: 36" measuredWidth="193" measuredHeight="104">
+    <font size="20px"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="28" x="961" y="249" text="Your game" measuredWidth="124" measuredHeight="41">
+    <font size="25px"/>
+  </widgets>
+  <widgets xsi:type="model:TextArea" id="29" x="961" y="168" width="195" height="52" text="Message Container" measuredWidth="195" measuredHeight="52">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:Callout" id="30" x="1084" y="631" text="1" measuredWidth="26" measuredHeight="26">
+    <font bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Callout" id="31" x="1080" y="672" text="2" measuredWidth="26" measuredHeight="26">
+    <font bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="32" x="1093" y="306" width="63" text="View sets" measuredWidth="63" measuredHeight="26">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Panel" id="1" x="448" y="64" width="761" height="705" measuredWidth="761" measuredHeight="705" background="black" alpha="128" border="none"/>
+  <widgets xsi:type="model:WidgetGroup" id="2" x="664" y="280" measuredWidth="329" measuredHeight="273">
+    <widgets xsi:type="model:TextArea" id="3" width="329" height="273" measuredWidth="329" measuredHeight="273">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Text" id="4" x="23" y="55" width="283" height="146" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." measuredWidth="283" measuredHeight="146">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="5" x="23" y="17" text="Instructions" measuredWidth="138" measuredHeight="41">
+      <font size="25px"/>
+    </widgets>
+    <widgets xsi:type="model:Button" id="6" x="256" y="216" text="OK" measuredWidth="37" measuredHeight="26" link="Game.screen">
+      <font/>
+    </widgets>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>
