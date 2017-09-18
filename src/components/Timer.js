@@ -5,7 +5,7 @@ class Timer extends Component {
   render() {
     let datetime = new Date(this.props.timestamp);
     return (
-      <time datetime="{this.props.timestamp}">{datetime.toLocaleTimeString()}</time>
+      <time dateTime="{this.props.timestamp}">{datetime.toLocaleTimeString()}</time>
     );
   }
 }
