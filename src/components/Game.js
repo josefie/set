@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Board from './Board.js';
+import Timer from './Timer.js';
 
 const CATEGORIES = {
   numbers: [1, 2, 3],
@@ -66,6 +67,7 @@ class Game extends Component {
     return (
       <div className="Game">
         <Board cards={this.cards} />
+        <Timer timestamp={new Date()} />
       </div>
     );
   }
