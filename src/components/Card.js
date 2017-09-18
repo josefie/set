@@ -2,13 +2,22 @@ import React, {Component} from 'react';
 
 class Card extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.number = props.number;
+    this.color = props.color;
+    this.texture = props.texture;
+    this.shape = props.shape;
+  }
+
   render() {
     return (
       <button>
-        <div>{this.props.properties.number}</div>
-        <div>{this.props.properties.color}</div>
-        <div>{this.props.properties.texture}</div>
-        <div>{this.props.properties.shape}</div>
+        <div>{this.number}</div>
+        <div>{this.color}</div>
+        <div>{this.texture}</div>
+        <div>{this.shape}</div>
       </button>
     );
   }

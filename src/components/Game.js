@@ -5,68 +5,65 @@ import Timer from './Timer.js';
 const CATEGORIES = {
   numbers: [1, 2, 3],
   colors: ['red', 'green', 'yellow'],
-  shapes: ['rectangle', 'oval', 'wave'],
-  textures: ['solid', 'empty', 'granular']
+  textures: ['solid', 'empty', 'granular'],
+  shapes: ['rectangle', 'oval', 'wave']
 };
 
-function createCards() {
+const cards = createCards();
 
-  return [
-    {
-      id: 1,
-      number: CATEGORIES.numbers[0],
-      color: CATEGORIES.colors[0],
-      shape: CATEGORIES.shapes[0],
-      texture: CATEGORIES.textures[0]
-    },
-    {
-      id: 2,
-      number: CATEGORIES.numbers[1],
-      color: CATEGORIES.colors[1],
-      shape: CATEGORIES.shapes[1],
-      texture: CATEGORIES.textures[1]
-    },
-    {
-      id: 3,
-      number: CATEGORIES.numbers[2],
-      color: CATEGORIES.colors[2],
-      shape: CATEGORIES.shapes[2],
-      texture: CATEGORIES.textures[2]
-    },
-    {
-      id: 4,
-      number: CATEGORIES.numbers[1],
-      color: CATEGORIES.colors[2],
-      shape: CATEGORIES.shapes[2],
-      texture: CATEGORIES.textures[2]
-    },
-    {
-      id: 5,
-      number: CATEGORIES.numbers[1],
-      color: CATEGORIES.colors[1],
-      shape: CATEGORIES.shapes[2],
-      texture: CATEGORIES.textures[2]
-    },
-    {
-      id: 6,
-      number: CATEGORIES.numbers[1],
-      color: CATEGORIES.colors[1],
-      shape: CATEGORIES.shapes[1],
-      texture: CATEGORIES.textures[2]
+function getRandomIndex() {
+  return Math.floor(Math.random() * cards.length);
+}
+
+function getRandomCards(number) {
+  let nextCards = [];
+
+  for (var i = 0; i < number; i++) {
+    let removedCard = cards.splice(getRandomIndex(), 1)[0];
+    nextCards.push(removedCard);
+    console.log(cards.length + ' cards left!');
+  }
+  
+  return nextCards;
+}
+
+function createCards() {
+  let cards = [];
+  let count = 0;
+
+  for (var number = 0; number < 3; number++) {
+    for (var color = 0; color < 3; color++) {
+      for (var texture = 0; texture < 3; texture++) {
+        for (var shape = 0; shape < 3; shape++) {
+          let card = {};
+          card.id = count++;
+          card.number = CATEGORIES.numbers[number];
+          card.color = CATEGORIES.colors[color];
+          card.texture = CATEGORIES.textures[texture];
+          card.shape = CATEGORIES.shapes[shape];
+          cards.push(card);
+
+          // TODO: überschneidungen auslassen
+          // (3*3*3*3) - (3*4) = 69
+        }
+      }
     }
-  ];
+  }
+
+  console.log(cards);
+  return cards;
 }
 
 class Game extends Component {
   constructor(props) {
     super(props);
-    this.cards = createCards();
+    this.currentCards = getRandomCards(12);
   }
 
   render() {
     return (
       <div className="Game">
-        <Board cards={this.cards} />
+        <Board cards={this.currentCards} />
         <Timer timestamp={new Date()} />
       </div>
     );
