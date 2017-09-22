@@ -1,0 +1,17 @@
+.CardWrapper {
+  list-style: none;
+  float: left;
+  margin: 30px;
+}
+
+.Card {
+  width: 130px;
+  height: 170px;
+  border: 2px solid #000;
+  background: #FFF;
+}
+
+.Card[aria-pressed="true"] {
+  background: #900;
+  color: #FFF;
+}

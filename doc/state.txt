@@ -1,0 +1,13 @@
+Card
+  - selected
+  - match
+
+Game
+  - sets
+  - currentCards
+
+Timer
+  - timeElapsed
+
+Help
+  - open

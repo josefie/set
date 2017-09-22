@@ -5,17 +5,13 @@ class Board extends Component {
 
   render() {
     const cards = this.props.cards.map((card) =>
-      <li key={card.id}>
-        <Card 
-        number={card.number} 
-        color={card.color}
-        texture={card.texture}
-        shape={card.shape} />
+      <li className="CardWrapper" key={card.id}>
+        <Card number={card.number} color={card.color} texture={card.texture} shape={card.shape} />
       </li>
     );
 
     return (
-      <div>
+      <div className="Board">
         <ul>
           {cards}
         </ul>
