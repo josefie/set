@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Board from './Board.js';
 import Timer from './Timer.js';
+import StatusBar from './StatusBar.js';
+import RestartButton from './RestartButton.js';
 
 const CATEGORIES = {
   numbers: [1, 2, 3],
@@ -9,51 +11,61 @@ const CATEGORIES = {
   shapes: ['rectangle', 'oval', 'wave']
 };
 
-class Game extends Component {
-  constructor(props) {
-    super(props);
-    this.cards = this.createCards();
-    this.currentCards = this.getRandomCards(12);
-  }
+const CARDS = createCards();
 
-  createCards() {
-    let cards = [];
-    let count = 0;
+function createCards() {
+  let cards = [];
+  let count = 0;
 
-    for (var number = 0; number < 3; number++) {
-      for (var color = 0; color < 3; color++) {
-        for (var texture = 0; texture < 3; texture++) {
-          for (var shape = 0; shape < 3; shape++) {
-            let card = {};
-            card.id = count++;
-            card.number = CATEGORIES.numbers[number];
-            card.color = CATEGORIES.colors[color];
-            card.texture = CATEGORIES.textures[texture];
-            card.shape = CATEGORIES.shapes[shape];
-            cards.push(card);
+  for (var number = 0; number < 3; number++) {
+    for (var color = 0; color < 3; color++) {
+      for (var texture = 0; texture < 3; texture++) {
+        for (var shape = 0; shape < 3; shape++) {
+          let card = {};
+          card.id = count++;
+          card.number = CATEGORIES.numbers[number];
+          card.color = CATEGORIES.colors[color];
+          card.texture = CATEGORIES.textures[texture];
+          card.shape = CATEGORIES.shapes[shape];
+          cards.push(card);
 
-            // TODO: überschneidungen auslassen
-            // (3*3*3*3) - (3*4) = 69
-          }
+          // TODO: überschneidungen auslassen
+          // (3*3*3*3) - (3*4) = 69
         }
       }
     }
+  }
 
-    console.log(cards);
-    return cards;
+  return cards;
+}
+
+class Game extends Component {
+
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      currentCards: [],
+      sets: []
+    };
+
+    this.restartGame = this.restartGame.bind(this);
+  }
+
+  componentWillMount() {
+    this.restartGame();
   }
 
   getRandomIndex() {
-    return Math.floor(Math.random() * this.cards.length);
+    return Math.floor(Math.random() * this.getNumberOfCards());
   }
 
   getRandomCards(number) {
     let nextCards = [];
 
-    for (var i = 0; i < number; i++) {
+    for (var i = 0; i < number && this.getNumberOfCards() > 0; i++) {
       let removedCard = this.cards.splice(this.getRandomIndex(), 1)[0];
       nextCards.push(removedCard);
-      console.log(this.getNumberOfCards() + ' cards left!');
     }
     
     return nextCards;
@@ -63,11 +75,25 @@ class Game extends Component {
     return this.cards.length;
   }
 
+  getNumberOfSets() {
+    return this.state.sets.length;
+  }
+
+  restartGame() {
+    this.cards = CARDS.slice();
+
+    this.setState({
+      currentCards: this.getRandomCards(12)
+    });
+  }
+
   render() {
     return (
       <div className="Game">
-        <Board cards={this.currentCards} />
+        <Board cards={this.state.currentCards} />
         <Timer timestamp={new Date()} />
+        <StatusBar cardsLeft={this.getNumberOfCards()} sets={this.getNumberOfSets()} />
+        <RestartButton onClick={this.restartGame} />
       </div>
     );
   }
