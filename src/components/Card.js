@@ -6,22 +6,24 @@ class Card extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      selected: false
-    };
-
     this.selectCard = this.selectCard.bind(this);
   }
 
-  selectCard(event) {
-    this.setState(prevState => ({
-      selected: !prevState.selected
-    }));
+  selectCard() {
+    this.props.onSelectCard(this);
+  }
+
+  isSelected() {
+    return this.props.selected;
+  }
+
+  getId() {
+    return this.props.id;
   }
 
   render() {
     return (
-      <button className="Card" aria-pressed={this.state.selected} onClick={this.selectCard}>
+      <button className="Card" aria-pressed={this.props.selected} onClick={this.selectCard}>
         <div>{this.props.number}</div>
         <div>{this.props.color}</div>
         <div>{this.props.texture}</div>
