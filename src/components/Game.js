@@ -2,22 +2,32 @@ import React, { Component } from 'react';
 import Timer from './Timer.js';
 import StatusBar from './StatusBar.js';
 import RestartButton from './RestartButton.js';
-import CardHelper from '../Cards.js';
 import Card from './Card.js';
-import CATEGORIES from '../Categories.js';
+import CardDeck from '../helper/CardDeck.js';
+import CATEGORIES from '../helper/Categories.js';
 
-const CARD_HELPER = new CardHelper();
 const SET_SIZE = 3;
+const DECK = CardDeck.create();
 
-function allDifferent(card1, card2, card3) {
-  if (card1 === card2 || card2 === card3 || card1 === card3) {
+function allDifferent(cards) {
+  if (cards.length !== SET_SIZE) {
+    console.error('Wrong number of cards.');
+    return;
+  }
+
+  if (cards[0] === cards[1] || cards[1] === cards[2] || cards[0] === cards[2]) {
     return false;
   }
   return true;
 }
 
-function allSame(card1, card2, card3) {
-  return card1 === card2 && card2 === card3;
+function allSame(cards) {
+  if (cards.length !== SET_SIZE) {
+    console.error('Wrong number of cards.');
+    return;
+  }
+
+  return cards[0] === cards[1] && cards[1] === cards[2];
 }
 
 class Game extends Component {
@@ -41,7 +51,9 @@ class Game extends Component {
   }
 
   componentDidUpdate() {
-    this.checkMatches();
+    if (this.state.selectedCards.length === SET_SIZE) {
+      this.checkMatches();
+    }
   }
 
   handleSelectCard(card) {
@@ -82,63 +94,67 @@ class Game extends Component {
     return this.state.sets.length;
   }
 
+  getCardById(id) {
+    const index = DECK.map((card) => card.id).indexOf(id);
+    return DECK[index];
+  }
+
   restartGame() {
-    this.cards = CARD_HELPER.cards.slice();
+    this.cards = DECK.slice();
 
     this.setState({
-      currentCards: this.getRandomCards(12)
+      currentCards: this.getRandomCards(12),
+      selectedCards: [],
+      sets: [],
+      tries: 0
     });
   }
 
   checkMatches() {
-    if (this.state.selectedCards.length === SET_SIZE) {
+    let isSet = true;
+    let cards = this.state.selectedCards.map((id) => this.getCardById(id));
 
-      let isSet = true;
-      
-      let card1 = CARD_HELPER.get(this.state.selectedCards[0]);
-      let card2 = CARD_HELPER.get(this.state.selectedCards[1]);
-      let card3 = CARD_HELPER.get(this.state.selectedCards[2]);
+    Object.keys(CATEGORIES).forEach(function(category) {
+      let categoryValues = cards.map((card) => card[category]);
 
-      Object.keys(CATEGORIES).forEach(function(category) {
-        let categoryMatches = false;
-
-        if (allSame(card1[category], card2[category], card3[category])) {
-          categoryMatches = true;
-        } else if (allDifferent(card1[category], card2[category], card3[category])) {
-          categoryMatches = true;
-        } 
-
-        if (categoryMatches === false) {
-          isSet = false;
-        }
-
-      });
-
-      if (isSet) {
-        console.log('SET!');
-
-        let sets = this.state.sets;
-        sets.push(this.state.selectedCards);
-
-        this.setState(function(prevState) {
-          return {
-            selectedCards: [],
-            sets: sets,
-            tries: prevState.tries + 1
-          }
-        });
-
-      } else {
-        console.log('No set :(');
-
-        this.setState(function(prevState) {
-          return {
-            selectedCards: [],
-            tries: prevState.tries + 1
-          }
-        });
+      if (!allSame(categoryValues) && !allDifferent(categoryValues)) {
+        isSet = false;
       }
+    });
+
+    if (isSet) {
+      console.log('SET!');
+      this.addSet();
+      this.unselectAllCards();
+      this.increaseAttemptsCounter();
+    } else {
+      console.log('No set :(');
+      this.increaseAttemptsCounter();
+      this.unselectAllCards();
     }
+  }
+
+  addSet() {
+    let sets = this.state.sets;
+    sets.push(this.state.selectedCards);
+
+    this.setState({
+      sets: sets
+    });
+  }
+
+  increaseAttemptsCounter() {
+    this.setState(function(prevState) {
+      return {
+        tries: prevState.tries + 1
+      }
+    });
+  }
+
+  unselectAllCards() {
+    this.setState({
+      selectedCards: []
+    });
   }
 
   render() {

@@ -1,12 +1,8 @@
 import CATEGORIES from './Categories.js';
 
-class CardHelper {
+class CardDeck {
 
-  constructor() {
-    this.cards = this.create();
-  }
-
-  create() {
+  static create() {
     let cards = [];
     let count = 0;
 
@@ -31,11 +27,6 @@ class CardHelper {
 
     return cards;
   }
-
-  get(id) {
-    const index = this.cards.map((card) => card.id).indexOf(id);
-    return this.cards[index];
-  }
 }
 
-export default CardHelper;
+export default CardDeck;
