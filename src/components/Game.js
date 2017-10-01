@@ -11,8 +11,7 @@ const DECK = CardDeck.create();
 
 function allDifferent(cards) {
   if (cards.length !== SET_SIZE) {
-    console.error('Wrong number of cards.');
-    return;
+    throw new Error("Wrong number of cards.");
   }
 
   if (cards[0] === cards[1] || cards[1] === cards[2] || cards[0] === cards[2]) {
@@ -23,8 +22,7 @@ function allDifferent(cards) {
 
 function allSame(cards) {
   if (cards.length !== SET_SIZE) {
-    console.error('Wrong number of cards.');
-    return;
+    throw new Error("Wrong number of cards.");
   }
 
   return cards[0] === cards[1] && cards[1] === cards[2];
@@ -110,16 +108,19 @@ class Game extends Component {
     });
   }
 
+  isCategoryMatch(categoryValues) {
+    if (!allSame(categoryValues) && !allDifferent(categoryValues)) {
+      return false;
+    }
+    return true;
+  }
+
   checkMatches() {
-    let isSet = true;
     let cards = this.state.selectedCards.map((id) => this.getCardById(id));
 
-    Object.keys(CATEGORIES).forEach(function(category) {
+    let isSet = Object.keys(CATEGORIES).every((category) => {
       let categoryValues = cards.map((card) => card[category]);
-
-      if (!allSame(categoryValues) && !allDifferent(categoryValues)) {
-        isSet = false;
-      }
+      return this.isCategoryMatch(categoryValues);
     });
 
     if (isSet) {
