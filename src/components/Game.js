@@ -84,6 +84,16 @@ class Game extends Component {
     return nextCards;
   }
 
+  addThreeCards() {
+    let nextCards = this.getRandomCards(SET_SIZE);
+
+    this.setState(function(prevState) {
+      return {
+        currentCards: prevState.currentCards.concat(nextCards)
+      };
+    });
+  }
+
   getNumberOfCards() {
     return this.cards.length;
   }
@@ -125,9 +135,11 @@ class Game extends Component {
 
     if (isSet) {
       console.log('SET!');
-      this.addSet();
+      this.addSet(this.state.selectedCards);
       this.unselectAllCards();
       this.increaseAttemptsCounter();
+      this.removeSetFromCurrentCards(this.state.selectedCards);
+      this.addThreeCards();
     } else {
       console.log('No set :(');
       this.increaseAttemptsCounter();
@@ -135,12 +147,26 @@ class Game extends Component {
     }
   }
 
-  addSet() {
-    let sets = this.state.sets;
-    sets.push(this.state.selectedCards);
+  addSet(set) {
+    this.setState(function(prevState) {
+      let sets = prevState.sets;
+      sets.push(set);
+      return {
+        sets: sets
+      };
+    });
+  }
 
+  removeSetFromCurrentCards(set) {
+    let currentCards = this.state.currentCards;
+
+    set.forEach(function(cardId) {
+      let index = currentCards.map((card) => card.id).indexOf(cardId);
+      currentCards.splice(index, 1);
+    });
+    
     this.setState({
-      sets: sets
+      currentCards: currentCards
     });
   }
 
