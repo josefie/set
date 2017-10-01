@@ -1,13 +1,12 @@
-const CATEGORIES = {
-  numbers: [1, 2, 3],
-  colors: ['red', 'green', 'yellow'],
-  textures: ['solid', 'empty', 'granular'],
-  shapes: ['rectangle', 'oval', 'wave']
-};
+import CATEGORIES from './Categories.js';
 
-class Cards {
+class CardHelper {
 
-  static create() {
+  constructor() {
+    this.cards = this.create();
+  }
+
+  create() {
     let cards = [];
     let count = 0;
 
@@ -17,10 +16,10 @@ class Cards {
           for (var shape = 0; shape < 3; shape++) {
             let card = {};
             card.id = count++;
-            card.number = CATEGORIES.numbers[number];
-            card.color = CATEGORIES.colors[color];
-            card.texture = CATEGORIES.textures[texture];
-            card.shape = CATEGORIES.shapes[shape];
+            card.number = CATEGORIES.number[number];
+            card.color = CATEGORIES.color[color];
+            card.texture = CATEGORIES.texture[texture];
+            card.shape = CATEGORIES.shape[shape];
             cards.push(card);
 
             // TODO: überschneidungen auslassen
@@ -32,6 +31,11 @@ class Cards {
 
     return cards;
   }
+
+  get(id) {
+    const index = this.cards.map((card) => card.id).indexOf(id);
+    return this.cards[index];
+  }
 }
 
-export default Cards;
+export default CardHelper;
