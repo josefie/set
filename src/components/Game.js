@@ -39,7 +39,7 @@ class Game extends Component {
       currentCards: [],
       selectedCards: [],
       sets: [],
-      tries: 0
+      attempts: 0
     };
 
     this.handleSelectCard = this.handleSelectCard.bind(this);
@@ -106,7 +106,7 @@ class Game extends Component {
       currentCards: this.getRandomCards(12),
       selectedCards: [],
       sets: [],
-      tries: 0
+      attempts: 0
     });
   }
 
@@ -146,7 +146,7 @@ class Game extends Component {
   increaseAttemptsCounter() {
     this.setState(function(prevState) {
       return {
-        tries: prevState.tries + 1
+        attempts: prevState.attempts + 1
       }
     });
   }
@@ -179,7 +179,7 @@ class Game extends Component {
           </ul>
         </div>
         <Timer timestamp={new Date()} />
-        <StatusBar cardsLeft={this.getNumberOfCards()} sets={this.getNumberOfSets()} tries={this.state.tries} />
+        <StatusBar cardsLeft={this.getNumberOfCards()} sets={this.getNumberOfSets()} attempts={this.state.attempts} />
         <RestartButton onClick={this.restartGame} />
       </div>
     );

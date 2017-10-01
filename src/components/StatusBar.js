@@ -6,7 +6,7 @@ class StatusBar extends Component {
       <div>
         <p>Cards left: {this.props.cardsLeft}</p>
         <p>Sets: {this.props.sets}</p>
-        <p>Tries: {this.props.tries}</p>
+        <p>Attempts: {this.props.attempts}</p>
       </div>
     );
   }
