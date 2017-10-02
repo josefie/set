@@ -34,6 +34,7 @@ class Game extends Component {
     super(props);
     
     this.state = {
+      cards: DECK.slice(),
       currentCards: [],
       selectedCards: [],
       sets: [],
@@ -42,6 +43,7 @@ class Game extends Component {
 
     this.handleSelectCard = this.handleSelectCard.bind(this);
     this.startGame = this.startGame.bind(this);
+    this.addThreeCards = this.addThreeCards.bind(this);
   }
 
   componentWillMount() {
@@ -55,13 +57,13 @@ class Game extends Component {
   }
 
   startGame() {
-    this.cards = DECK.slice();
-
-    this.setState({
-      currentCards: this.getRandomCards(12),
-      selectedCards: [],
-      sets: [],
-      attempts: 0
+    this.setState({cards: DECK.slice()}, function() {
+      this.setState({
+        currentCards: this.getRandomCards(12),
+        selectedCards: [],
+        sets: [],
+        attempts: 0
+      });
     });
   }
 
@@ -80,17 +82,22 @@ class Game extends Component {
     });
   }
 
-  getRandomIndex() {
-    return Math.floor(Math.random() * this.getNumberOfCards());
+  getRandomIndex(size) {
+    return Math.floor(Math.random() * size);
   }
 
   getRandomCards(number) {
     let nextCards = [];
+    let cardsLeft = this.state.cards;
 
-    for (var i = 0; i < number && this.getNumberOfCards() > 0; i++) {
-      let removedCard = this.cards.splice(this.getRandomIndex(), 1)[0];
+    for (var i = 0; i < number && cardsLeft.length > 0; i++) {
+      let removedCard = cardsLeft.splice(this.getRandomIndex(cardsLeft.length), 1)[0];
       nextCards.push(removedCard);
     }
+
+    this.setState({
+      cards: cardsLeft
+    });
     
     return nextCards;
   }
@@ -106,7 +113,7 @@ class Game extends Component {
   }
 
   getNumberOfCards() {
-    return this.cards.length;
+    return this.state.cards.length;
   }
 
   getNumberOfSets() {
@@ -208,6 +215,7 @@ class Game extends Component {
         <Timer timestamp={new Date()} />
         <StatusBar cardsLeft={this.getNumberOfCards()} sets={this.getNumberOfSets()} attempts={this.state.attempts} />
         <RestartButton onClick={this.startGame} /> 
+        <button onClick={this.addThreeCards}>Add 3 more cards</button>
       </div>
     );
   }
