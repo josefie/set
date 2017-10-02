@@ -41,17 +41,28 @@ class Game extends Component {
     };
 
     this.handleSelectCard = this.handleSelectCard.bind(this);
-    this.restartGame = this.restartGame.bind(this);
+    this.startGame = this.startGame.bind(this);
   }
 
   componentWillMount() {
-    this.restartGame();
+    this.startGame();
   }
 
   componentDidUpdate() {
     if (this.state.selectedCards.length === SET_SIZE) {
       this.checkMatches();
     }
+  }
+
+  startGame() {
+    this.cards = DECK.slice();
+
+    this.setState({
+      currentCards: this.getRandomCards(12),
+      selectedCards: [],
+      sets: [],
+      attempts: 0
+    });
   }
 
   handleSelectCard(card) {
@@ -107,17 +118,6 @@ class Game extends Component {
     return DECK[index];
   }
 
-  restartGame() {
-    this.cards = DECK.slice();
-
-    this.setState({
-      currentCards: this.getRandomCards(12),
-      selectedCards: [],
-      sets: [],
-      attempts: 0
-    });
-  }
-
   isCategoryMatch(categoryValues) {
     if (!allSame(categoryValues) && !allDifferent(categoryValues)) {
       return false;
@@ -136,9 +136,9 @@ class Game extends Component {
     if (isSet) {
       console.log('SET!');
       this.addSet(this.state.selectedCards);
+      this.removeSetFromCurrentCards(this.state.selectedCards);
       this.unselectAllCards();
       this.increaseAttemptsCounter();
-      this.removeSetFromCurrentCards(this.state.selectedCards);
       this.addThreeCards();
     } else {
       console.log('No set :(');
@@ -207,7 +207,7 @@ class Game extends Component {
         </div>
         <Timer timestamp={new Date()} />
         <StatusBar cardsLeft={this.getNumberOfCards()} sets={this.getNumberOfSets()} attempts={this.state.attempts} />
-        <RestartButton onClick={this.restartGame} />
+        <RestartButton onClick={this.startGame} /> 
       </div>
     );
   }
