@@ -1,15 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
   background-color: #222;
-  height: 150px;
   padding: 20px;
   color: white;
 }
@@ -18,13 +16,29 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.Game {
+  display: flex;
+  justify-content: center;
+  max-width: 90em; 
+  margin: 0 auto; 
 }
 
 .Board {
-  width: 80%;
-  max-width: 800px;
-  margin: 0 auto;
+   flex-basis: 856px; 
+}
+
+.Board ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.Sidebar {
+  flex-basis: 20em;
+  margin: 0 1em;
+  padding: 2em;
+  text-align: left;
+  background-color: #eee; 
 }

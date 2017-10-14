@@ -1,0 +1,15 @@
+.Message {
+  padding: 1em 1.5em;
+  border-radius: 1px;
+  font-weight: bold;
+  width: 100%;
+  background: #8d0;
+}
+
+.Message--negative {
+  background: #f06;
+}
+
+.Message--positive {
+  background: #8d0
+}

@@ -1,9 +1,11 @@
 import React from 'react';
 
-const Message = function({message}) {
+import '../styles/Message.css';
+
+const Message = function({message, type}) {
   return(
-    <div aria-live="assertive">
-      <p>{message}</p>
+    <div className={'Message Message--' + type} aria-live="assertive">
+      {message}
     </div>
   );
 };

@@ -10,6 +10,8 @@ import Message from './Message.js';
 import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
 
+import '../styles/Button.css';
+
 const SET_SIZE = 3;
 const BOARD_SIZE = 4 * SET_SIZE;
 const DECK = CardDeck.create();
@@ -159,7 +161,7 @@ class Game extends Component {
     });
 
     if (isSet) {
-      this.showMessage('Great! That\'s a set!');
+      this.showMessage('Great! That\'s a set!', true);
       this.addSet(this.state.selectedCards);
       this.increaseAttemptsCounter();
       this.removeSetFromCurrentCards(this.state.selectedCards);
@@ -169,14 +171,19 @@ class Game extends Component {
         this.addThreeCards();
       }
     } else {
-      this.showMessage('Nope, sorry...');
+      this.showMessage('Nope, sorry...', false);
       this.increaseAttemptsCounter();
       this.unselectAllCards();
     }
   }
 
-  showMessage(message) {
-    this.setState({message: message});
+  showMessage(message, isPositive) {
+    let type = isPositive ? 'positive' : 'negative';
+
+    this.setState({
+      message: message,
+      type: type
+    });
   }
 
   addSet(set) {
@@ -237,19 +244,21 @@ class Game extends Component {
             {cards}
           </ul>
         </div>
-        <Message message={this.state.message} />
-        <StatusInfo>
-          <p>Sets: {this.state.sets.length}</p>
-          <Timer timeElapsed={this.state.timeElapsed}/>
-          <p>Attempts: {this.state.attempts}</p>
-          <p>Cards left: {this.getNumberOfCards()}</p>
-        </StatusInfo>
-        <RestartButton onClick={this.startGame} />
-        <Help>
-          <button>View instructions</button>
-          <button onClick={this.addThreeCards}>Add more cards</button> 
-          <button>Give me a hint</button>
-        </Help>
+        <div className="Sidebar">
+          <Message message={this.state.message} type={this.state.type}/>
+          <StatusInfo>
+            <p>Sets: {this.state.sets.length}</p>
+            <Timer timeElapsed={this.state.timeElapsed}/>
+            <p>Attempts: {this.state.attempts}</p>
+            <p>Cards left: {this.getNumberOfCards()}</p>
+          </StatusInfo>
+          <RestartButton onClick={this.startGame} />
+          <Help>
+            <button className="button">View instructions</button>
+            <button className="button" onClick={this.addThreeCards}>Add more cards</button> 
+            <button className="button">Give me a hint</button>
+          </Help>
+        </div>
       </div>
     );
   }
