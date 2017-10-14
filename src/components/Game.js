@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import Timer from './Timer.js';
-import StatusBar from './StatusBar.js';
+
+import StatusInfo from './StatusInfo.js';
 import RestartButton from './RestartButton.js';
+import Help from './Help.js';
 import Card from './Card.js';
+
 import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
 
 const SET_SIZE = 3;
+const BOARD_SIZE = 4 * SET_SIZE;
 const DECK = CardDeck.create();
 
 function allDifferent(cards) {
@@ -32,7 +35,7 @@ class Game extends Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       cards: DECK.slice(),
       currentCards: [],
@@ -116,10 +119,6 @@ class Game extends Component {
     return this.state.cards.length;
   }
 
-  getNumberOfSets() {
-    return this.state.sets.length;
-  }
-
   getCardById(id) {
     const index = DECK.map((card) => card.id).indexOf(id);
     return DECK[index];
@@ -143,10 +142,13 @@ class Game extends Component {
     if (isSet) {
       console.log('SET!');
       this.addSet(this.state.selectedCards);
+      this.increaseAttemptsCounter();
       this.removeSetFromCurrentCards(this.state.selectedCards);
       this.unselectAllCards();
-      this.increaseAttemptsCounter();
-      this.addThreeCards();
+
+      if (this.state.currentCards.length < BOARD_SIZE) {
+        this.addThreeCards();
+      }
     } else {
       console.log('No set :(');
       this.increaseAttemptsCounter();
@@ -212,10 +214,8 @@ class Game extends Component {
             {cards}
           </ul>
         </div>
-        <Timer timestamp={new Date()} />
-        <StatusBar cardsLeft={this.getNumberOfCards()} sets={this.getNumberOfSets()} attempts={this.state.attempts} />
-        <RestartButton onClick={this.startGame} /> 
-        <button onClick={this.addThreeCards}>Add 3 more cards</button>
+        <StatusInfo attempts={this.state.attempts} sets={this.state.sets} cardsLeft={this.getNumberOfCards()} />
+        <RestartButton onClick={this.startGame} />
       </div>
     );
   }
