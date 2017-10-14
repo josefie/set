@@ -5,6 +5,7 @@ import RestartButton from './RestartButton.js';
 import Help from './Help.js';
 import Card from './Card.js';
 import Timer from './Timer.js';
+import Message from './Message.js';
 
 import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
@@ -43,7 +44,8 @@ class Game extends Component {
       selectedCards: [],
       sets: [],
       attempts: 0,
-      timeElapsed: 0
+      timeElapsed: 0,
+      message: "Good luck!"
     };
 
     this.handleSelectCard = this.handleSelectCard.bind(this);
@@ -81,7 +83,8 @@ class Game extends Component {
         selectedCards: [],
         sets: [],
         attempts: 0,
-        timeElapsed: 0
+        timeElapsed: 0,
+        message: "Good luck!"
       });
     });
   }
@@ -156,7 +159,7 @@ class Game extends Component {
     });
 
     if (isSet) {
-      console.log('SET!');
+      this.showMessage('Great! That\'s a set!');
       this.addSet(this.state.selectedCards);
       this.increaseAttemptsCounter();
       this.removeSetFromCurrentCards(this.state.selectedCards);
@@ -166,10 +169,14 @@ class Game extends Component {
         this.addThreeCards();
       }
     } else {
-      console.log('No set :(');
+      this.showMessage('Nope, sorry...');
       this.increaseAttemptsCounter();
       this.unselectAllCards();
     }
+  }
+
+  showMessage(message) {
+    this.setState({message: message});
   }
 
   addSet(set) {
@@ -230,9 +237,10 @@ class Game extends Component {
             {cards}
           </ul>
         </div>
+        <Message message={this.state.message} />
         <StatusInfo>
-          <Timer timeElapsed={this.state.timeElapsed}/>
           <p>Sets: {this.state.sets.length}</p>
+          <Timer timeElapsed={this.state.timeElapsed}/>
           <p>Attempts: {this.state.attempts}</p>
           <p>Cards left: {this.getNumberOfCards()}</p>
         </StatusInfo>

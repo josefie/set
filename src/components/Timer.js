@@ -6,7 +6,9 @@ const Timer = function({timeElapsed}) {
   let timeString = datetime.toLocaleTimeString();
 
   return (
-    <time dateTime={datetime}>{timeString.slice(3, timeString.length)}</time>
+    <div>
+      Time: <time dateTime={datetime}>{timeString.slice(3, timeString.length)}</time>
+    </div>
   );
 }
 
