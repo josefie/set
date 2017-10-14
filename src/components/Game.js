@@ -4,6 +4,7 @@ import StatusInfo from './StatusInfo.js';
 import RestartButton from './RestartButton.js';
 import Help from './Help.js';
 import Card from './Card.js';
+import Timer from './Timer.js';
 
 import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
@@ -41,7 +42,8 @@ class Game extends Component {
       currentCards: [],
       selectedCards: [],
       sets: [],
-      attempts: 0
+      attempts: 0,
+      timeElapsed: 0
     };
 
     this.handleSelectCard = this.handleSelectCard.bind(this);
@@ -49,8 +51,9 @@ class Game extends Component {
     this.addThreeCards = this.addThreeCards.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.startGame();
+    this.interval = setInterval(() => this.tickTimer(), 1000);
   }
 
   componentDidUpdate() {
@@ -59,13 +62,26 @@ class Game extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  tickTimer() {
+    this.setState((prevState) => {
+      return {
+        timeElapsed: prevState.timeElapsed + 1
+      };
+    });
+  }
+
   startGame() {
     this.setState({cards: DECK.slice()}, function() {
       this.setState({
         currentCards: this.getRandomCards(12),
         selectedCards: [],
         sets: [],
-        attempts: 0
+        attempts: 0,
+        timeElapsed: 0
       });
     });
   }
@@ -202,7 +218,7 @@ class Game extends Component {
 
       return (
       <li className="CardWrapper" key={card.id}>
-        <Card selected={isSelected} onSelectCard={handleSelectCard} id={card.id} number={card.number} color={card.color} texture={card.texture} shape={card.shape} />
+        <Card selected={isSelected} onSelectCard={handleSelectCard} id={card.id} properties={card} />
       </li>
       );
     });
@@ -214,8 +230,18 @@ class Game extends Component {
             {cards}
           </ul>
         </div>
-        <StatusInfo attempts={this.state.attempts} sets={this.state.sets} cardsLeft={this.getNumberOfCards()} />
+        <StatusInfo>
+          <Timer timeElapsed={this.state.timeElapsed}/>
+          <p>Sets: {this.state.sets.length}</p>
+          <p>Attempts: {this.state.attempts}</p>
+          <p>Cards left: {this.getNumberOfCards()}</p>
+        </StatusInfo>
         <RestartButton onClick={this.startGame} />
+        <Help>
+          <button>View instructions</button>
+          <button onClick={this.addThreeCards}>Add more cards</button> 
+          <button>Give me a hint</button>
+        </Help>
       </div>
     );
   }

@@ -1,13 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Timer extends Component {
+const Timer = function({timeElapsed}) {
+  let datetime = new Date(null);
+  datetime.setSeconds(timeElapsed);
+  let timeString = datetime.toLocaleTimeString();
 
-  render() {
-    let datetime = new Date(this.props.timestamp);
-    return (
-      <time dateTime="{this.props.timestamp}">{datetime.toLocaleTimeString()}</time>
-    );
-  }
+  return (
+    <time dateTime={datetime}>{timeString.slice(3, timeString.length)}</time>
+  );
 }
+
+Timer.defaultProps = {
+  timeElapsed: 0
+};
 
 export default Timer;

@@ -24,10 +24,10 @@ class Card extends Component {
   render() {
     return (
       <button className="Card" aria-pressed={this.props.selected} onClick={this.selectCard}>
-        <div>{this.props.number}</div>
-        <div>{this.props.color}</div>
-        <div>{this.props.texture}</div>
-        <div>{this.props.shape}</div>
+        <div>{this.props.properties.number}</div>
+        <div>{this.props.properties.color}</div>
+        <div>{this.props.properties.texture}</div>
+        <div>{this.props.properties.shape}</div>
       </button>
     );
   }

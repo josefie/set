@@ -1,13 +1,13 @@
 import React from 'react';
 
-const StatusInfo = function({children}) {
+const Help = function({children}) {
 
   return (
     <section>
-      <h2>Your game</h2>
+      <h2>Need help?</h2>
       {children}
     </section>
   );
 }
 
-export default StatusInfo;
+export default Help;
