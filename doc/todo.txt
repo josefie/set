@@ -1,0 +1,6 @@
+Todos:
+- Cards with shapes
+- Message with summary when the game is finished
+- Give hint
+- View instructions
+- View all collected sets
