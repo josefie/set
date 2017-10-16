@@ -6,6 +6,7 @@ import Help from './Help.js';
 import Card from './Card.js';
 import Timer from './Timer.js';
 import Message from './Message.js';
+import Shapes from './Shapes.js';
 
 import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
@@ -239,6 +240,7 @@ class Game extends Component {
 
     return (
       <div className="Game">
+        <Shapes/>
         <div className="Board">
           <ul>
             {cards}

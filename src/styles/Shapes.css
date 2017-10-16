@@ -1,0 +1,10 @@
+#Shapes {
+  display: none;
+}
+
+#oval,
+#rectangle,
+#squiggle {
+  stroke-width: 8px;
+  stroke: #000;
+}
