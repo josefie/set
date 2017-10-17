@@ -12,6 +12,7 @@ import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
 
 import '../styles/Button.css';
+import '../styles/Helper.css';
 
 const SET_SIZE = 3;
 const BOARD_SIZE = 4 * SET_SIZE;

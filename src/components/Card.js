@@ -24,9 +24,10 @@ class Card extends Component {
 
   renderShapes() {
     let shapes = [];
-
+    let x = 0;
     for (let i = 0; i < this.props.properties.number; i++) {
-      shapes.push(<use x="0" y="0" width="170" height="400" href={'#' + this.props.properties.shape}/>);
+      shapes.push(<use x={x} y="0" width="170" height="400" href={'#' + this.props.properties.shape}/>);
+      x += 200;
     }
 
     return shapes;
@@ -35,15 +36,17 @@ class Card extends Component {
   render() {
 
     return (
-      <button className="Card" aria-pressed={this.props.selected} onClick={this.selectCard}>
-        <svg viewBox="0 0 170 400" fill={this.props.properties.color}>
+      <button className="Card Shape" aria-pressed={this.props.selected} onClick={this.selectCard}>
+        <svg viewBox="0 0 630 400" className={'shape shape--' + this.props.properties.color + ' shape--' + this.props.properties.texture}>
           {this.renderShapes()}
         </svg>
         
-        <div>{this.props.properties.number}</div>
-        <div>{this.props.properties.color}</div>
-        <div>{this.props.properties.texture}</div>
-        <div>{this.props.properties.shape}</div>
+        <div className="visually-hidden">
+          <div>{this.props.properties.number}</div>
+          <div>{this.props.properties.color}</div>
+          <div>{this.props.properties.texture}</div>
+          <div>{this.props.properties.shape + (this.props.properties.number > 1 ? 's' : '')}</div>
+        </div>
       </button>
     );
   }

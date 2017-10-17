@@ -1,10 +1,47 @@
 #Shapes {
-  display: none;
+  /* display: none; */
 }
 
-#oval,
-#rectangle,
-#squiggle {
+.shape {
   stroke-width: 8px;
   stroke: #000;
+}
+
+.shape--red {
+  fill: #e44;
+}
+
+.shape--red.shape--empty {
+  fill: none;
+  stroke: #e44;
+}
+
+.shape--red.shape--granular {
+  fill: url(#pattern-red);
+}
+
+.shape--green {
+  fill: #0b5;
+}
+
+.shape--green.shape--empty {
+  fill: none;
+  stroke: #0b5;
+}
+
+.shape--green.shape--granular {
+  fill: url(#pattern-green);
+}
+
+.shape--yellow {
+  fill: #fc0;
+}
+
+.shape--yellow.shape--empty {
+  fill: none;
+  stroke: #fc0;
+}
+
+.shape--yellow.shape--granular {
+  fill: url(#pattern-yellow);
 }
