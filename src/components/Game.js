@@ -55,6 +55,7 @@ class Game extends Component {
     this.handleSelectCard = this.handleSelectCard.bind(this);
     this.startGame = this.startGame.bind(this);
     this.addThreeCards = this.addThreeCards.bind(this);
+    this.giveHint = this.giveHint.bind(this);
   }
 
   componentDidMount() {
@@ -64,7 +65,23 @@ class Game extends Component {
 
   componentDidUpdate() {
     if (this.state.selectedCards.length === SET_SIZE) {
-      this.checkMatches();
+      let possibleSet = this.state.selectedCards;
+
+      if (this.doCardsMatch(possibleSet)) {
+        this.showMessage('Great! That\'s a set!', true);
+        this.addSet(possibleSet);
+        this.increaseAttemptsCounter();
+        this.removeSetFromCurrentCards(possibleSet);
+        this.unselectAllCards();
+
+        if (this.state.currentCards.length < BOARD_SIZE) {
+          this.addThreeCards();
+        }
+      } else {
+        this.showMessage('Nope, sorry...', false);
+        this.increaseAttemptsCounter();
+        this.unselectAllCards();
+      }
     }
   }
 
@@ -106,6 +123,10 @@ class Game extends Component {
     this.setState({
       selectedCards: selectedCardsCopy
     });
+  }
+
+  giveHint() {
+    this.getAllCombinations(this.state.currentCards, this.state.currentCards.length, SET_SIZE);
   }
 
   getRandomIndex(size) {
@@ -154,29 +175,47 @@ class Game extends Component {
     return true;
   }
 
-  checkMatches() {
-    let cards = this.state.selectedCards.map((id) => this.getCardById(id));
+  doCardsMatch(possibleSet) {
+    let cards = possibleSet.map((id) => this.getCardById(id));
 
-    let isSet = Object.keys(CATEGORIES).every((category) => {
+    return Object.keys(CATEGORIES).every((category) => {
       let categoryValues = cards.map((card) => card[category]);
       return this.isCategoryMatch(categoryValues);
     });
+  }
 
-    if (isSet) {
-      this.showMessage('Great! That\'s a set!', true);
-      this.addSet(this.state.selectedCards);
-      this.increaseAttemptsCounter();
-      this.removeSetFromCurrentCards(this.state.selectedCards);
-      this.unselectAllCards();
+  // Source: http://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
+  combinationUtil(cards, currentCombination, start, end, index, combinationSize) {
 
-      if (this.state.currentCards.length < BOARD_SIZE) {
-        this.addThreeCards();
+    if (index === combinationSize) {
+      let combination = currentCombination.slice();
+      this.combinations.push(combination);
+      let isSet = this.doCardsMatch(combination);
+
+      if (isSet) {
+        console.log("SET: ", combination);
       }
-    } else {
-      this.showMessage('Nope, sorry...', false);
-      this.increaseAttemptsCounter();
-      this.unselectAllCards();
+
+      return;
     }
+ 
+    // replace index with all possible elements. The condition
+    // "end-i+1 >= r-index" makes sure that including one element
+    // at index will make a combination with remaining elements
+    // at remaining positions
+    for (let i = start; (i <= end) && (end-i+1 >= combinationSize-index); i++) {
+      currentCombination[index] = cards[i].id;
+      this.combinationUtil(cards, currentCombination, i+1, end, index+1, combinationSize);
+    }
+  }
+
+  getAllCombinations(cards, total) {
+    this.combinations = [];
+    let currentCombination = [];
+
+    this.combinationUtil(cards, currentCombination, 0, total-1, 0, SET_SIZE);
+
+    return this.combinations;
   }
 
   showMessage(message, isPositive) {
@@ -259,7 +298,7 @@ class Game extends Component {
           <Help>
             <button className="button">View instructions</button>
             <button className="button" onClick={this.addThreeCards}>Add more cards</button> 
-            <button className="button">Give me a hint</button>
+            <button className="button" onClick={this.giveHint}>Give me a hint</button>
           </Help>
         </div>
       </div>

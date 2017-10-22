@@ -26,7 +26,7 @@ class Card extends Component {
     let shapes = [];
     let x = 0;
     for (let i = 0; i < this.props.properties.number; i++) {
-      shapes.push(<use x={x} y="0" width="170" height="400" href={'#' + this.props.properties.shape}/>);
+      shapes.push(<use x={x} y="0" width="170" height="400" href={'#' + this.props.properties.shape} key={i}/>);
       x += 200;
     }
 
@@ -37,6 +37,7 @@ class Card extends Component {
 
     return (
       <button className="Card Shape" aria-pressed={this.props.selected} onClick={this.selectCard}>
+        <strong>{this.props.id}</strong>
         <svg viewBox="0 0 630 400" className={'shape shape--' + this.props.properties.color + ' shape--' + this.props.properties.texture}>
           {this.renderShapes()}
         </svg>
