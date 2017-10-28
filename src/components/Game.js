@@ -10,6 +10,7 @@ import Shapes from './Shapes.js';
 
 import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
+import Combinator from '../helper/Combinator.js';
 
 import '../styles/Button.css';
 import '../styles/Helper.css';
@@ -37,6 +38,10 @@ function allSame(cards) {
   return cards[0] === cards[1] && cards[1] === cards[2];
 }
 
+function getRandomIndex(size) {
+  return Math.floor(Math.random() * size);
+}
+
 class Game extends Component {
 
   constructor(props) {
@@ -51,6 +56,8 @@ class Game extends Component {
       timeElapsed: 0,
       message: "Good luck!"
     };
+
+    this.highlightedSet = [];
 
     this.handleSelectCard = this.handleSelectCard.bind(this);
     this.startGame = this.startGame.bind(this);
@@ -110,6 +117,10 @@ class Game extends Component {
     });
   }
 
+  finishGame() {
+    this.showMessage('Game finished!', true);
+  }
+
   handleSelectCard(card) {
     let selectedCardsCopy = this.state.selectedCards.slice();
 
@@ -126,11 +137,25 @@ class Game extends Component {
   }
 
   giveHint() {
-    this.getAllCombinations(this.state.currentCards, this.state.currentCards.length, SET_SIZE);
-  }
+    let combinations = Combinator.getAllCombinations(this.state.currentCards, SET_SIZE);
+    let setsInCurrentCards = [];
+    this.highlightedSet = [];
 
-  getRandomIndex(size) {
-    return Math.floor(Math.random() * size);
+    for(let i = 0; i < combinations.length; i++) {
+      if (this.doCardsMatch(combinations[i])) {
+        setsInCurrentCards.push(combinations[i]);
+      }
+    }
+
+    // only highlight a single set found for now
+    if (setsInCurrentCards.length) {
+      this.highlightedSet = setsInCurrentCards[getRandomIndex(setsInCurrentCards.length)];
+    } else if (this.getNumberOfCards > 0) {
+      this.showMessage("I couldn't find any set, either! Here are three more cards for you!");
+      this.addThreeCards();
+    } else {
+      this.finishGame();
+    }
   }
 
   getRandomCards(number) {
@@ -138,7 +163,7 @@ class Game extends Component {
     let cardsLeft = this.state.cards;
 
     for (var i = 0; i < number && cardsLeft.length > 0; i++) {
-      let removedCard = cardsLeft.splice(this.getRandomIndex(cardsLeft.length), 1)[0];
+      let removedCard = cardsLeft.splice(getRandomIndex(cardsLeft.length), 1)[0];
       nextCards.push(removedCard);
     }
 
@@ -182,40 +207,6 @@ class Game extends Component {
       let categoryValues = cards.map((card) => card[category]);
       return this.isCategoryMatch(categoryValues);
     });
-  }
-
-  // Source: http://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
-  combinationUtil(cards, currentCombination, start, end, index, combinationSize) {
-
-    if (index === combinationSize) {
-      let combination = currentCombination.slice();
-      this.combinations.push(combination);
-      let isSet = this.doCardsMatch(combination);
-
-      if (isSet) {
-        console.log("SET: ", combination);
-      }
-
-      return;
-    }
- 
-    // replace index with all possible elements. The condition
-    // "end-i+1 >= r-index" makes sure that including one element
-    // at index will make a combination with remaining elements
-    // at remaining positions
-    for (let i = start; (i <= end) && (end-i+1 >= combinationSize-index); i++) {
-      currentCombination[index] = cards[i].id;
-      this.combinationUtil(cards, currentCombination, i+1, end, index+1, combinationSize);
-    }
-  }
-
-  getAllCombinations(cards, total) {
-    this.combinations = [];
-    let currentCombination = [];
-
-    this.combinationUtil(cards, currentCombination, 0, total-1, 0, SET_SIZE);
-
-    return this.combinations;
   }
 
   showMessage(message, isPositive) {
@@ -267,13 +258,15 @@ class Game extends Component {
   render() {
     const selectedCards = this.state.selectedCards;
     const handleSelectCard = this.handleSelectCard;
+    const highlightedSet = this.highlightedSet;
 
     const cards = this.state.currentCards.map(function(card) {
       let isSelected = (selectedCards.indexOf(card.id)) !== -1;
+      let isHighlighted = (highlightedSet.indexOf(card.id)) !== -1;
 
       return (
       <li className="CardWrapper" key={card.id}>
-        <Card selected={isSelected} onSelectCard={handleSelectCard} id={card.id} properties={card} />
+        <Card selected={isSelected} highlighted={isHighlighted} onSelectCard={handleSelectCard} id={card.id} properties={card} />
       </li>
       );
     });
