@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import '../styles/components/Button.css';
+
 class RestartButton extends Component {
   render() {
     return (

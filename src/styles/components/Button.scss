@@ -1,16 +1,17 @@
+@import "styles/settings/Colors.scss";
+
 .button {
   display: block;
   width: 100%;
   margin-bottom: 1em;
   padding: 0.5em 1.5em;
   border: none;
-  background: #444;
+  background: $grey;
   color: #FFF;
 }
 
 .button:hover, .button:focus {
-  background: #8d0;
-  color: #222;
+  background: $grey-dark;
 }
 
 .button--big {

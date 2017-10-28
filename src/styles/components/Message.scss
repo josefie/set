@@ -1,15 +1,17 @@
+@import 'styles/settings/Colors.scss';
+
 .Message {
   padding: 1em 1.5em;
   border-radius: 1px;
   font-weight: bold;
   width: 100%;
-  background: #8d0;
+  background: $green;
 }
 
 .Message--negative {
-  background: #f06;
+  background: $red;
 }
 
 .Message--positive {
-  background: #8d0
+  background: $green;
 }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import '../styles/Shapes.css';
+
+import '../styles/components/Shapes.css';
 
 class Shapes extends Component {
 

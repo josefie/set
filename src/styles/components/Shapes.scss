@@ -1,3 +1,5 @@
+@import "styles/settings/Colors.scss";
+
 #Shapes {
   /* display: none; */
 }
@@ -8,12 +10,12 @@
 }
 
 .shape--red {
-  fill: #e44;
+  fill: $red;
 }
 
 .shape--red.shape--empty {
   fill: none;
-  stroke: #e44;
+  stroke: $red;
 }
 
 .shape--red.shape--granular {
@@ -21,12 +23,12 @@
 }
 
 .shape--green {
-  fill: #0b5;
+  fill: $green;
 }
 
 .shape--green.shape--empty {
   fill: none;
-  stroke: #0b5;
+  stroke: $green;
 }
 
 .shape--green.shape--granular {
@@ -34,12 +36,12 @@
 }
 
 .shape--yellow {
-  fill: #fc0;
+  fill: $yellow;
 }
 
 .shape--yellow.shape--empty {
   fill: none;
-  stroke: #fc0;
+  stroke: $yellow;
 }
 
 .shape--yellow.shape--granular {
