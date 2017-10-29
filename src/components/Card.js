@@ -36,7 +36,7 @@ class Card extends Component {
   render() {
 
     return (
-      <button className={'Card Shape' + (this.props.highlighted ? ' Card--highlighted' : '')} aria-pressed={this.props.selected} onClick={this.selectCard}>
+      <button className={'card' + (this.props.highlighted ? ' card--highlighted' : '')} aria-pressed={this.props.selected} onClick={this.selectCard}>
         <strong>{this.props.id}</strong>
         <svg viewBox="0 0 630 400" className={'shape shape--' + this.props.properties.color + ' shape--' + this.props.properties.texture}>
           {this.renderShapes()}

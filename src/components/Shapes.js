@@ -6,7 +6,7 @@ class Shapes extends Component {
 
   render() {
     return (
-      <svg id="Shapes">
+      <svg id="shapes" className="shape-defs">
         <defs>
           <pattern id="pattern-red" patternUnits="userSpaceOnUse" width="8" height="8">
             <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" stroke="#e44"/>

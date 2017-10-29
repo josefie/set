@@ -1,7 +1,9 @@
 @import "styles/settings/Colors.scss";
 
-#Shapes {
-  /* display: none; */
+.shape-defs {
+  // hide svg before being used
+  width: 0;
+  height: 0;
 }
 
 .shape {

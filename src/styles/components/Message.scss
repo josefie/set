@@ -1,6 +1,6 @@
 @import 'styles/settings/Colors.scss';
 
-.Message {
+.message {
   padding: 1em 1.5em;
   border-radius: 1px;
   font-weight: bold;
@@ -8,10 +8,10 @@
   background: $green;
 }
 
-.Message--negative {
+.message--negative {
   background: $red;
 }
 
-.Message--positive {
+.message--positive {
   background: $green;
 }

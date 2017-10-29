@@ -265,21 +265,21 @@ class Game extends Component {
       let isHighlighted = (highlightedSet.indexOf(card.id)) !== -1;
 
       return (
-      <li className="CardWrapper" key={card.id}>
+      <li className="card-wrapper" key={card.id}>
         <Card selected={isSelected} highlighted={isHighlighted} onSelectCard={handleSelectCard} id={card.id} properties={card} />
       </li>
       );
     });
 
     return (
-      <div className="Game">
+      <main className="game-container">
         <Shapes/>
-        <div className="Board">
+        <div className="board">
           <ul>
             {cards}
           </ul>
         </div>
-        <div className="Sidebar">
+        <div className="sidebar">
           <Message message={this.state.message} type={this.state.type}/>
           <StatusInfo>
             <p>Sets: {this.state.sets.length}</p>
@@ -294,7 +294,7 @@ class Game extends Component {
             <button className="button" onClick={this.giveHint}>Give me a hint</button>
           </Help>
         </div>
-      </div>
+      </main>
     );
   }
 }

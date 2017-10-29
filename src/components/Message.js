@@ -4,7 +4,7 @@ import '../styles/components/Message.css';
 
 const Message = function({message, type}) {
   return(
-    <div className={'Message Message--' + type} aria-live="assertive">
+    <div className={'message message--' + type} aria-live="assertive">
       {message}
     </div>
   );

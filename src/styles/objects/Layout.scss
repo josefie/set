@@ -1,25 +1,11 @@
-.App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #222;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-.Game {
+.game-container {
   display: flex;
   justify-content: center;
   max-width: 90em; 
   margin: 0 auto; 
 }
 
-.Board {
+.board {
    flex-basis: 856px;
 
    ul {
@@ -31,7 +17,7 @@
    }
 }
 
-.Sidebar {
+.sidebar {
   flex-basis: 20em;
   margin: 0 1em;
   padding: 2em;
