@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Help = function({children}) {
+const Section = function({title, children}) {
 
   return (
     <section>
-      <h2>Need help?</h2>
+      <h2>{title}</h2>
       {children}
     </section>
   );
 }
 
-export default Help;
+export default Section;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import StatusInfo from './StatusInfo.js';
+import Section from './Section.js';
 import RestartButton from './RestartButton.js';
-import Help from './Help.js';
 import Card from './Card.js';
 import Timer from './Timer.js';
 import Message from './Message.js';
@@ -297,18 +296,18 @@ class Game extends Component {
             </ul>
           </div>
           <div className="sidebar">
-            <StatusInfo>
+            <Section title="Your game">
               <p>Sets: {this.state.sets.length}</p>
               <Timer timeElapsed={this.state.timeElapsed}/>
               <p>Attempts: {this.state.attempts}</p>
               <p>Cards left: {this.getNumberOfCards()}</p>
-            </StatusInfo>
+            </Section>
             <RestartButton onClick={this.startGame} />
-            <Help>
+            <Section title="Need help?">
               <button className="button">View instructions</button>
               <button className="button" onClick={this.addThreeCards}>Add more cards</button> 
               <button className="button" onClick={this.giveHint}>Give me a hint</button>
-            </Help>
+            </Section>
           </div>
         </div>
       </main>
