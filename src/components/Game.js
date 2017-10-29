@@ -124,7 +124,15 @@ class Game extends Component {
   }
 
   finishGame() {
-    this.showMessage('Game finished!', true);
+    const attempts = this.state.attempts;
+    const numberOfSets = this.state.sets.length;
+    const averageTime = this.state.timeElapsed / this.state.sets.length;
+    let message = 'Great, you finished the game! You needed ' 
+      + attempts + ' attempt' + (attempts > 1 ? 's' : '') + ' to find ' 
+      + numberOfSets + ' set' + (numberOfSets > 1 ? 's' : '') + '. Your average time to find one set was ' 
+      + averageTime + ' seconds.';
+    
+    this.showMessage(message, true);
   }
 
   handleSelectCard(card) {
