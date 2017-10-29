@@ -8,14 +8,14 @@ class ShapeDefs extends Component {
     return (
       <svg id="shapes" className="shape-defs">
         <defs>
-          <pattern id="pattern-red" patternUnits="userSpaceOnUse" width="8" height="8">
-            <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" stroke="#e44"/>
+          <pattern id="pattern-red" patternUnits="userSpaceOnUse" width="30" height="30" className="pattern--red">
+            <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" strokeWidth="200"/>
           </pattern>
-          <pattern id="pattern-green" patternUnits="userSpaceOnUse" width="8" height="8">
-            <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" stroke="#0b5"/>
+          <pattern id="pattern-green" patternUnits="userSpaceOnUse" width="30" height="30" className="pattern--green">
+            <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" strokeWidth="200"/>
           </pattern>
-          <pattern id="pattern-yellow" patternUnits="userSpaceOnUse" width="8" height="8">
-            <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" stroke="#fc0"/>
+          <pattern id="pattern-yellow" patternUnits="userSpaceOnUse" width="30" height="30" className="pattern--yellow">
+            <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" strokeWidth="200"/>
           </pattern>
         </defs>
         <defs>

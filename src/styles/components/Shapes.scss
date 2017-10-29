@@ -13,41 +13,53 @@
   flex: 0 0 33.33%;
 }
 
-.shape--red {
-  fill: $red;
-}
-
-.shape--red.shape--empty {
-  fill: none;
+.pattern--red {
   stroke: $red;
 }
 
-.shape--red.shape--granular {
-  fill: url(#pattern-red);
+.pattern--green {
+  stroke: $green;
+}
+
+.pattern--yellow {
+  stroke: $yellow;
+}
+
+.shape--red {
+  fill: $red;
+
+  &.shape--empty {
+    fill: none;
+    stroke: $red;
+  }
+
+  &.shape--granular {
+    fill: url(#pattern-red);
+  }
 }
 
 .shape--green {
   fill: $green;
-}
+  
+  &.shape--empty {
+    fill: none;
+    stroke: $green;
+  }
 
-.shape--green.shape--empty {
-  fill: none;
-  stroke: $green;
-}
-
-.shape--green.shape--granular {
-  fill: url(#pattern-green);
+  &.shape--granular {
+    fill: url(#pattern-green);
+  }
 }
 
 .shape--yellow {
   fill: $yellow;
-}
 
-.shape--yellow.shape--empty {
-  fill: none;
-  stroke: $yellow;
-}
+  &.shape--empty {
+    fill: none;
+    stroke: $yellow;
+  }
 
-.shape--yellow.shape--granular {
-  fill: url(#pattern-yellow);
+  &.shape--granular {
+    fill: url(#pattern-yellow);
+  }
 }
