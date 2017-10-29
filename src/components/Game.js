@@ -157,7 +157,7 @@ class Game extends Component {
       this.setState({
         highlightedSet: setsInCurrentCards[getRandomIndex(setsInCurrentCards.length)]
       });
-    } else if (this.getNumberOfCards > 0) {
+    } else if (this.getNumberOfCards() > 0) {
       this.setState({
         highlightedSet: []
       });
