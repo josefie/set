@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 
 import './styles/generic/Reset.css';
-import './styles/objects/Layout.css';
 import './styles/objects/Header.css';
+import './styles/objects/Container.css';
+import './styles/objects/Board.css';
+import './styles/objects/Sidebar.css';
 
 import Game from './components/Game';
 

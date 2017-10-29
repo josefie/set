@@ -1,5 +1,5 @@
 @import 'styles/settings/Colors.scss';
-@import 'styles/settings/Shadows.scss';
+@import 'styles/settings/Defaults.scss';
 
 .card-wrapper {
   list-style: none;
@@ -12,25 +12,24 @@
   justify-content: center;
   width: 100%;
   padding: 15px 30px;
-  align-content: #eee;
+  background: #fff;
   border: 5px solid transparent;
-  border-radius: 6px;
+  border-radius: $border-radius;
   text-align: left;
   box-shadow: $box-shadow-default;
 
   &:focus,
   &:hover,
   &[aria-pressed="true"] {
-    border-color: $grey-dark;
-    background: #fff;
+    box-shadow: $box-shadow-strong;
   }
 
   &[aria-pressed="true"] {
-    box-shadow: $box-shadow-strong;
+    border-color: $grey-dark;
 
     &:hover,
     &:focus {
-      background: #eee;
+      background: $grey-light;
     }
   }
 }

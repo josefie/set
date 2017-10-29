@@ -10,10 +10,12 @@
   color: #FFF;
   border-radius: 6px;
   line-height: 2em;
-}
+  cursor: pointer;
 
-.button:hover, .button:focus {
-  background: $grey-dark;
+  &:hover,
+  &:focus {
+    background: $grey-dark;
+  }
 }
 
 .button--big {

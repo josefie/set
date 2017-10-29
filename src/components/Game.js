@@ -289,7 +289,7 @@ class Game extends Component {
     return (
       <main>
         <Message message={this.state.message} type={this.state.type}/>
-        <div className="game-container">
+        <div className="container">
           <ShapeDefs/>
           <div id="board" className="board" tabIndex="-1">
             <ul>
