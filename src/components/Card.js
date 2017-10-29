@@ -28,7 +28,7 @@ class Card extends Component {
     let shapes = [];
 
     for (let i = 0; i < this.props.properties.number; i++) {
-      shapes.push(<Shape shape={this.props.properties.shape} color={this.props.properties.color} texture={this.props.properties.texture} />);
+      shapes.push(<Shape shape={this.props.properties.shape} color={this.props.properties.color} texture={this.props.properties.texture} key={i}/>);
     }
 
     return shapes;
