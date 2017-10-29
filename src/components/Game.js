@@ -253,6 +253,8 @@ class Game extends Component {
     this.setState({
       selectedCards: []
     });
+
+    document.getElementById('board').focus();
   }
 
   render() {
@@ -272,27 +274,29 @@ class Game extends Component {
     });
 
     return (
-      <main className="game-container">
-        <Shapes/>
-        <div className="board">
-          <ul>
-            {cards}
-          </ul>
-        </div>
-        <div className="sidebar">
-          <Message message={this.state.message} type={this.state.type}/>
-          <StatusInfo>
-            <p>Sets: {this.state.sets.length}</p>
-            <Timer timeElapsed={this.state.timeElapsed}/>
-            <p>Attempts: {this.state.attempts}</p>
-            <p>Cards left: {this.getNumberOfCards()}</p>
-          </StatusInfo>
-          <RestartButton onClick={this.startGame} />
-          <Help>
-            <button className="button">View instructions</button>
-            <button className="button" onClick={this.addThreeCards}>Add more cards</button> 
-            <button className="button" onClick={this.giveHint}>Give me a hint</button>
-          </Help>
+      <main>
+        <Message message={this.state.message} type={this.state.type}/>
+        <div className="game-container">
+          <Shapes/>
+          <div id="board" className="board" tabIndex="-1">
+            <ul>
+              {cards}
+            </ul>
+          </div>
+          <div className="sidebar">
+            <StatusInfo>
+              <p>Sets: {this.state.sets.length}</p>
+              <Timer timeElapsed={this.state.timeElapsed}/>
+              <p>Attempts: {this.state.attempts}</p>
+              <p>Cards left: {this.getNumberOfCards()}</p>
+            </StatusInfo>
+            <RestartButton onClick={this.startGame} />
+            <Help>
+              <button className="button">View instructions</button>
+              <button className="button" onClick={this.addThreeCards}>Add more cards</button> 
+              <button className="button" onClick={this.giveHint}>Give me a hint</button>
+            </Help>
+          </div>
         </div>
       </main>
     );

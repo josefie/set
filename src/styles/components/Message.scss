@@ -1,10 +1,12 @@
 @import 'styles/settings/Colors.scss';
 
 .message {
-  padding: 1em 1.5em;
+  padding: 2em;
+  margin-bottom: 1em;
   border-radius: 1px;
   font-weight: bold;
   width: 100%;
+  text-align: center;
   background: $green;
 }
 

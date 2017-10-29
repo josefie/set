@@ -1,24 +1,36 @@
+@import 'styles/settings/Colors.scss';
+
 .card-wrapper {
   list-style: none;
-  margin: 2em;
-  flex: 1 1 auto;
+  margin: 1em;
+  flex: 1 1 15em;
 }
 
 .card {
-  width: 150px;
-  padding: 10px;
-  outline: 2px solid #444;
-  border: none;
-  background: #FFF;
-}
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  align-content: #eee;
+  border: 5px solid transparent;
+  border-radius: 6px;
+  text-align: left;
+  box-shadow: 0 0 8px -2px rgba(0, 0, 0, 0.5);
 
-.card:focus {
-  outline-width: 5px;
-}
+  &:focus,
+  &:hover,
+  &[aria-pressed="true"] {
+    border-color: $grey-dark;
+    background: #fff;
+  }
 
-.card[aria-pressed="true"] {
-  background: #444;
-  color: #fff;
+  &[aria-pressed="true"] {
+    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
+
+    &:hover,
+    &:focus {
+      background: #eee;
+    }
+  }
 }
 
 .card--highlighted {
