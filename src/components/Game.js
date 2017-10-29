@@ -79,6 +79,9 @@ class Game extends Component {
         this.increaseAttemptsCounter();
         this.removeSetFromCurrentCards(possibleSet);
         this.unselectAllCards();
+        this.setState({
+          highlightedSet: []
+        });
 
         if (this.state.currentCards.length < BOARD_SIZE) {
           this.addThreeCards();
@@ -87,6 +90,9 @@ class Game extends Component {
         this.showMessage('Nope, sorry, that\'s not a set. Try again!', false);
         this.increaseAttemptsCounter();
         this.unselectAllCards();
+        this.setState({
+          highlightedSet: []
+        });
       }
     }
   }
