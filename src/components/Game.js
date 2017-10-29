@@ -6,6 +6,7 @@ import Card from './Card.js';
 import Timer from './Timer.js';
 import Message from './Message.js';
 import ShapeDefs from './ShapeDefs.js';
+import Modal from './Modal.js';
 
 import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
@@ -304,7 +305,9 @@ class Game extends Component {
             </Section>
             <RestartButton onClick={this.startGame} />
             <Section title="Need help?">
-              <button className="button">View instructions</button>
+              <Modal title="Instructions" id="instructions">
+                <p><a href="https://en.wikipedia.org/wiki/Set_(game)">Set on Wikipedia</a></p>
+              </Modal>
               <button className="button" onClick={this.addThreeCards}>Add more cards</button> 
               <button className="button" onClick={this.giveHint}>Give me a hint</button>
             </Section>

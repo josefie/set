@@ -1,0 +1,30 @@
+.modal {
+  position: absolute;
+  top: 10vw;
+  left: 10vw;
+  right: 10vw;
+  bottom: 10vw;
+  overflow: auto;
+  min-width: 300px;
+  background: #FFF;
+  box-shadow: 0 0 0px 10vw rgba(0,0,0,0.5);
+}
+
+.modal__body {
+  padding: 5vw;
+  max-width: 60em;
+  margin: 0 auto;
+}
+
+.modal__close-button {
+  float: right;
+  width: auto;
+}
+
+[aria-expanded="false"] ~ .modal {
+  display: none;
+}
+
+[aria-expanded="true"] ~ .modal {
+  display: block;
+}
