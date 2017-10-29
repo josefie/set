@@ -54,10 +54,9 @@ class Game extends Component {
       sets: [],
       attempts: 0,
       timeElapsed: 0,
-      message: "Good luck!"
+      message: "Good luck!",
+      highlightedSet: []
     };
-
-    this.highlightedSet = [];
 
     this.handleSelectCard = this.handleSelectCard.bind(this);
     this.startGame = this.startGame.bind(this);
@@ -112,7 +111,8 @@ class Game extends Component {
         sets: [],
         attempts: 0,
         timeElapsed: 0,
-        message: "Good luck!"
+        message: "Good luck!",
+        highlightedSet: []
       });
     });
   }
@@ -139,7 +139,6 @@ class Game extends Component {
   giveHint() {
     let combinations = Combinator.getAllCombinations(this.state.currentCards, SET_SIZE);
     let setsInCurrentCards = [];
-    this.highlightedSet = [];
 
     for(let i = 0; i < combinations.length; i++) {
       if (this.doCardsMatch(combinations[i])) {
@@ -149,11 +148,19 @@ class Game extends Component {
 
     // only highlight a single set found for now
     if (setsInCurrentCards.length) {
-      this.highlightedSet = setsInCurrentCards[getRandomIndex(setsInCurrentCards.length)];
+      this.setState({
+        highlightedSet: setsInCurrentCards[getRandomIndex(setsInCurrentCards.length)]
+      });
     } else if (this.getNumberOfCards > 0) {
+      this.setState({
+        highlightedSet: []
+      });
       this.showMessage("I couldn't find any set, either! Here are three more cards for you!");
       this.addThreeCards();
     } else {
+      this.setState({
+        highlightedSet: []
+      });
       this.finishGame();
     }
   }
@@ -260,7 +267,7 @@ class Game extends Component {
   render() {
     const selectedCards = this.state.selectedCards;
     const handleSelectCard = this.handleSelectCard;
-    const highlightedSet = this.highlightedSet;
+    const highlightedSet = this.state.highlightedSet;
 
     const cards = this.state.currentCards.map(function(card) {
       let isSelected = (selectedCards.indexOf(card.id)) !== -1;
