@@ -1,4 +1,5 @@
 @import 'styles/settings/Colors.scss';
+@import 'styles/settings/Shadows.scss';
 
 .card-wrapper {
   list-style: none;
@@ -7,14 +8,15 @@
 }
 
 .card {
-  position: relative;
+  display: flex;
+  justify-content: center;
   width: 100%;
-  padding: 20px;
+  padding: 15px 30px;
   align-content: #eee;
   border: 5px solid transparent;
   border-radius: 6px;
   text-align: left;
-  box-shadow: 0 0 8px -2px rgba(0, 0, 0, 0.5);
+  box-shadow: $box-shadow-default;
 
   &:focus,
   &:hover,
@@ -24,7 +26,7 @@
   }
 
   &[aria-pressed="true"] {
-    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: $box-shadow-strong;
 
     &:hover,
     &:focus {

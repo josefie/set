@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import '../styles/components/Shapes.css';
 
-class Shapes extends Component {
+class ShapeDefs extends Component {
 
   render() {
     return (
@@ -37,4 +37,4 @@ class Shapes extends Component {
   }
 }
 
-export default Shapes;
+export default ShapeDefs;

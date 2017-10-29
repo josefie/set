@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import Shape from './Shape.js';
+
 import '../styles/components/Card.css';
 
 class Card extends Component {
@@ -24,10 +26,9 @@ class Card extends Component {
 
   renderShapes() {
     let shapes = [];
-    let x = 0;
+
     for (let i = 0; i < this.props.properties.number; i++) {
-      shapes.push(<use x={x} y="0" width="170" height="400" href={'#' + this.props.properties.shape} key={i}/>);
-      x += 200;
+      shapes.push(<Shape shape={this.props.properties.shape} color={this.props.properties.color} texture={this.props.properties.texture} />);
     }
 
     return shapes;
@@ -37,10 +38,7 @@ class Card extends Component {
 
     return (
       <button className={'card' + (this.props.highlighted ? ' card--highlighted' : '')} aria-pressed={this.props.selected} onClick={this.selectCard}>
-        <svg viewBox="-10 -10 590 420" className={'shape shape--' + this.props.properties.color + ' shape--' + this.props.properties.texture}>
-          {this.renderShapes()}
-        </svg>
-        
+        {this.renderShapes()}
         <div className="visually-hidden">
           <div>{this.props.properties.number}</div>
           <div>{this.props.properties.color}</div>

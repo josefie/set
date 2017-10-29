@@ -6,7 +6,7 @@ import Help from './Help.js';
 import Card from './Card.js';
 import Timer from './Timer.js';
 import Message from './Message.js';
-import Shapes from './Shapes.js';
+import ShapeDefs from './ShapeDefs.js';
 
 import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
@@ -85,7 +85,7 @@ class Game extends Component {
           this.addThreeCards();
         }
       } else {
-        this.showMessage('Nope, sorry...', false);
+        this.showMessage('Nope, sorry, that\'s not a set. Try again!', false);
         this.increaseAttemptsCounter();
         this.unselectAllCards();
       }
@@ -277,7 +277,7 @@ class Game extends Component {
       <main>
         <Message message={this.state.message} type={this.state.type}/>
         <div className="game-container">
-          <Shapes/>
+          <ShapeDefs/>
           <div id="board" className="board" tabIndex="-1">
             <ul>
               {cards}
