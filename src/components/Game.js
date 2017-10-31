@@ -55,7 +55,7 @@ class Game extends Component {
       attempts: 0,
       timeElapsed: 0,
       message: "Good luck!",
-      highlightedSet: []
+      highlightedCards: []
     };
 
     this.handleSelectCard = this.handleSelectCard.bind(this);
@@ -80,7 +80,7 @@ class Game extends Component {
         this.removeSetFromCurrentCards(possibleSet);
         this.unselectAllCards();
         this.setState({
-          highlightedSet: []
+          highlightedCards: []
         });
 
         if (this.state.currentCards.length < BOARD_SIZE) {
@@ -91,7 +91,7 @@ class Game extends Component {
         this.increaseAttemptsCounter();
         this.unselectAllCards();
         this.setState({
-          highlightedSet: []
+          highlightedCards: []
         });
       }
     }
@@ -118,7 +118,7 @@ class Game extends Component {
         attempts: 0,
         timeElapsed: 0,
         message: "Good luck!",
-        highlightedSet: []
+        highlightedCards: []
       });
     });
   }
@@ -150,6 +150,14 @@ class Game extends Component {
     });
   }
 
+  getPositionInCurrentCards(card) {
+    let ids = this.state.currentCards.map((card) => {
+      return card.id;
+    });
+
+    return ids.indexOf(card) + 1;
+  }
+
   giveHint() {
     let combinations = Combinator.getAllCombinations(this.state.currentCards, SET_SIZE);
     let setsInCurrentCards = [];
@@ -160,20 +168,26 @@ class Game extends Component {
       }
     }
 
-    // only highlight a single set found for now
-    if (setsInCurrentCards.length) {
+    let numberOfSetsFound = setsInCurrentCards.length;
+
+    if (numberOfSetsFound > 0) {
+      // only highlight the first two card of a single set for now
+      let randomSetFound = setsInCurrentCards[getRandomIndex(setsInCurrentCards.length)];
+
       this.setState({
-        highlightedSet: setsInCurrentCards[getRandomIndex(setsInCurrentCards.length)]
+        highlightedCards: [randomSetFound[0], randomSetFound[1]]
       });
+      
+      this.showMessage('Have a closer look at card ' + this.getPositionInCurrentCards(randomSetFound[0]) + ' and card ' + this.getPositionInCurrentCards(randomSetFound[1]));
     } else if (this.getNumberOfCards() > 0) {
       this.setState({
-        highlightedSet: []
+        highlightedCards: []
       });
       this.showMessage("I couldn't find any set, either! Here are three more cards for you!");
       this.addThreeCards();
     } else {
       this.setState({
-        highlightedSet: []
+        highlightedCards: []
       });
       this.finishGame();
     }
@@ -281,11 +295,11 @@ class Game extends Component {
   render() {
     const selectedCards = this.state.selectedCards;
     const handleSelectCard = this.handleSelectCard;
-    const highlightedSet = this.state.highlightedSet;
+    const highlightedCards = this.state.highlightedCards;
 
     const cards = this.state.currentCards.map(function(card) {
       let isSelected = (selectedCards.indexOf(card.id)) !== -1;
-      let isHighlighted = (highlightedSet.indexOf(card.id)) !== -1;
+      let isHighlighted = (highlightedCards.indexOf(card.id)) !== -1;
 
       return (
       <li className="card-wrapper" key={card.id}>

@@ -24,6 +24,16 @@ class Card extends Component {
     return this.props.id;
   }
 
+  getHumanReadableName() {
+    return (
+      this.props.properties.number + ' '
+      + this.props.properties.color + ' ' 
+      + this.props.properties.texture + ' '
+      + this.props.properties.shape 
+      + (this.props.properties.number > 1 ? 's' : '')
+    );
+  }
+
   renderShapes() {
     let shapes = [];
 
@@ -40,10 +50,7 @@ class Card extends Component {
       <button className={'card' + (this.props.highlighted ? ' card--highlighted' : '')} aria-pressed={this.props.selected} onClick={this.selectCard}>
         {this.renderShapes()}
         <div className="visually-hidden">
-          <div>{this.props.properties.number}</div>
-          <div>{this.props.properties.color}</div>
-          <div>{this.props.properties.texture}</div>
-          <div>{this.props.properties.shape + (this.props.properties.number > 1 ? 's' : '')}</div>
+          {this.getHumanReadableName()}
         </div>
       </button>
     );
