@@ -50,7 +50,7 @@ class Card extends Component {
   render() {
 
     return (
-      <button className={'card' + (this.props.highlighted ? ' card--highlighted' : '')} aria-pressed={this.props.selected} onClick={this.selectCard}>
+      <button id={'card-' + this.props.id} className={'card' + (this.props.highlighted ? ' card--highlighted' : '')} aria-pressed={this.props.selected} onClick={this.selectCard}>
         {this.renderShapes()}
         <div className="visually-hidden">
           {this.getHumanReadableName()}

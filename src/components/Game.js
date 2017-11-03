@@ -216,6 +216,8 @@ class Game extends Component {
       return {
         currentCards: prevState.currentCards.concat(nextCards)
       };
+    }, function() {
+      document.getElementById('card-' + nextCards[0].id).focus();
     });
   }
 
