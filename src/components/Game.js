@@ -75,7 +75,11 @@ class Game extends Component {
 
       if (this.doCardsMatch(possibleSet)) {
         this.showMessage('Great! That\'s a set!', true);
-        this.addSet(possibleSet);
+        let collectedSet = [];
+        for (let i = 0; i < SET_SIZE; i++) {
+          collectedSet.push(this.getCardById(possibleSet[i]));
+        }
+        this.addSet(collectedSet);
         this.increaseAttemptsCounter();
         this.removeSetFromCurrentCards(possibleSet);
         this.unselectAllCards();
@@ -323,6 +327,19 @@ class Game extends Component {
           <div className="sidebar">
             <Section title="Your game">
               <p>Sets: {this.state.sets.length}</p>
+              <Modal id="collected-sets" title="Collected Sets" buttonTitle="View">
+                {this.state.sets.map(function(set, key) {
+                  return (
+                    <ul className="flex-list" key={key}>
+                      {set.map(function(card, key) {
+                        return (
+                          <li key={key}><Card properties={card}/></li>
+                        );
+                      })}
+                    </ul>
+                  );
+                })}
+              </Modal>
               <Timer timeElapsed={this.state.timeElapsed}/>
               <p>Attempts: {this.state.attempts}</p>
               <p>Cards left: {this.getNumberOfCards()}</p>
