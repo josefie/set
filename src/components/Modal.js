@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 
 import '../styles/components/Modal.css';
 
-const elementsFocusable = [
+const ELEMENTS_FOCUSABLE = [
   'a[href]:not([tabindex="-1"])',
   'button:not([disabled]):not([tabindex="-1"])',
   'input:not([disabled]):not([tabindex="-1"])',
   'textarea:not([disabled]):not([tabindex="-1"])',
   'select:not([disabled]):not([tabindex="-1"])',
-  '[tabindex="0"]'
+  '[tabindex]:not([tabindex="-1"])'
 ];
 
 const KEYCODE = {
@@ -67,26 +67,27 @@ class Modal extends Component {
     this.previouslyFocusedElement = document.activeElement;
     this.modal.focus();
     this.trapFocus();
-    
+
     this.setState({
       isOpen: true
     });
   }
 
   trapFocus() {
-    const modalElement = this.modal;
+    const focusableElementsInModal = this.modal.querySelectorAll(ELEMENTS_FOCUSABLE);
+    const lastElement = focusableElementsInModal[focusableElementsInModal.length - 1];
+    const firstElement = focusableElementsInModal[0];
 
     document.addEventListener('keypress', function(event) {
       let keyCode = event.keyCode || event.which;
-      let focusableElementsInModal = modalElement.querySelectorAll(elementsFocusable);
-      let lastElement = focusableElementsInModal[focusableElementsInModal.length - 1];
-      let firstElement = focusableElementsInModal[0];
+      let tabForwards = keyCode === KEYCODE.TAB && !event.shiftKey;
+      let tabBackwards = keyCode === KEYCODE.TAB && event.shiftKey;
       let activeElement = document.activeElement;
 
-      if (keyCode === KEYCODE.TAB && !event.shiftKey && activeElement === lastElement) {
+      if (tabForwards && activeElement === lastElement) {
         event.preventDefault();
         firstElement.focus();
-      } else if (keyCode === KEYCODE.TAB && event.shiftKey && activeElement === firstElement) {
+      } else if (tabBackwards && activeElement === firstElement) {
         event.preventDefault();
         lastElement.focus();
       }
