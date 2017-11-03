@@ -15,16 +15,6 @@
   border-radius: $border-radius;
 }
 
-.modal__mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.6);
-  display: none;
-}
-
 .modal__body {
   padding: 3em 3em 1em;
 }
@@ -40,13 +30,25 @@
   margin-bottom: 0;
 }
 
-[aria-expanded="false"] ~ .modal {
-  display: none;
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+[aria-expanded="false"] {
+  ~ .modal,
+  ~ .modal-mask {
+    display: none;
+  }
 }
 
 [aria-expanded="true"] {
   ~ .modal,
-  ~ .modal__mask {
+  ~ .modal-mask {
     display: block;
   }
 }

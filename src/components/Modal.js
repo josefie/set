@@ -109,7 +109,7 @@ class Modal extends Component {
             <button onClick={this.closeModal} className="button modal__close-button">Close</button>
           </div>
         </div>
-        <div id="modal-mask" className="modal__mask"></div>
+        <div id="modal-mask" className="modal-mask"></div>
       </div>
     );
   }
