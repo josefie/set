@@ -42,8 +42,6 @@ class Modal extends Component {
   }
 
   closeModal() {
-    let body = document.querySelector('body');
-    body.style.overflow = 'auto';
 
     // this.button.focus();
     
@@ -53,9 +51,6 @@ class Modal extends Component {
   }
 
   openModal() {
-    let body = document.querySelector('body');
-    body.style.overflow = 'hidden';
-    body.scrollTop = 0;
 
     // this.modal.focus();
 
@@ -74,9 +69,12 @@ class Modal extends Component {
             <div id={this.props.id + '-content'}>
               {this.props.children}
             </div>
+          </div>
+          <div className="modal__footer">
             <button onClick={this.closeModal} className="button modal__close-button">Close</button>
           </div>
         </div>
+        <div className="modal__mask"></div>
       </div>
     );
   }

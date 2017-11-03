@@ -1,30 +1,52 @@
+@import "styles/settings/Colors.scss";
+@import "styles/settings/Defaults.scss";
+
 .modal {
-  position: absolute;
-  top: 10vw;
-  left: 10vw;
-  right: 10vw;
-  bottom: 10vw;
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   overflow: auto;
-  min-width: 300px;
   background: #FFF;
-  box-shadow: 0 0 0px 10vw rgba(0,0,0,0.5);
+  max-height: 100%;
+  min-width: 50%;
+  border-top: $border-radius solid $green;
+  border-radius: $border-radius;
+}
+
+.modal__mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
 }
 
 .modal__body {
-  padding: 5vw;
-  max-width: 60em;
-  margin: 0 auto;
+  padding: 3em 3em 1em;
+}
+
+.modal__footer {
+  padding: 1em;
+  background: $green;
 }
 
 .modal__close-button {
-  float: right;
   width: auto;
+  margin-left: auto;
+  margin-bottom: 0;
 }
 
 [aria-expanded="false"] ~ .modal {
   display: none;
 }
 
-[aria-expanded="true"] ~ .modal {
-  display: block;
+[aria-expanded="true"] {
+  ~ .modal,
+  ~ .modal__mask {
+    display: block;
+  }
 }

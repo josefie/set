@@ -13,6 +13,9 @@ class Card extends Component {
   }
 
   selectCard() {
+    if (typeof this.props.onSelectCard === 'undefined') {
+      return false;
+    }
     this.props.onSelectCard(this);
   }
 
