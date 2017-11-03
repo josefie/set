@@ -2,6 +2,20 @@ import React, {Component} from 'react';
 
 import '../styles/components/Modal.css';
 
+const elementsFocusable = [
+  'a[href]:not([tabindex="-1"])',
+  'button:not([disabled]):not([tabindex="-1"])',
+  'input:not([disabled]):not([tabindex="-1"])',
+  'textarea:not([disabled]):not([tabindex="-1"])',
+  'select:not([disabled]):not([tabindex="-1"])',
+  '[tabindex="0"]'
+];
+
+const KEYCODE = {
+  ESC: 27,
+  TAB: 9
+};
+
 class Modal extends Component {
   constructor() {
     super();
@@ -13,21 +27,21 @@ class Modal extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+
+    this.previouslyFocusedElement = null;
   }
 
   componentDidMount() {
     let body = document.querySelector('body');
 
-    body.addEventListener('click', (event) => {
-      if (event.target.id !== this.props.id && !event.target.closest('#' + this.props.id)) {
-        this.closeModal();
-      }
+    document.querySelector('#modal-mask').addEventListener('click', (event) => {
+      this.closeModal();
     });
 
     body.addEventListener('keyup', (event) => {
       let keyCode = event.keyCode || event.which;
 
-      if (keyCode === 27) {
+      if (keyCode === KEYCODE.ESC) {
         this.closeModal();
       }
     });
@@ -42,20 +56,40 @@ class Modal extends Component {
   }
 
   closeModal() {
-
-    // this.button.focus();
-    
     this.setState({
       isOpen: false
     });
+
+    this.previouslyFocusedElement.focus();
   }
 
   openModal() {
-
-    // this.modal.focus();
-
+    this.previouslyFocusedElement = document.activeElement;
+    this.modal.focus();
+    this.trapFocus();
+    
     this.setState({
       isOpen: true
+    });
+  }
+
+  trapFocus() {
+    const modalElement = this.modal;
+
+    document.addEventListener('keypress', function(event) {
+      let keyCode = event.keyCode || event.which;
+      let focusableElementsInModal = modalElement.querySelectorAll(elementsFocusable);
+      let lastElement = focusableElementsInModal[focusableElementsInModal.length - 1];
+      let firstElement = focusableElementsInModal[0];
+      let activeElement = document.activeElement;
+
+      if (keyCode === KEYCODE.TAB && !event.shiftKey && activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      } else if (keyCode === KEYCODE.TAB && event.shiftKey && activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      }
     });
   }
 
@@ -74,7 +108,7 @@ class Modal extends Component {
             <button onClick={this.closeModal} className="button modal__close-button">Close</button>
           </div>
         </div>
-        <div className="modal__mask"></div>
+        <div id="modal-mask" className="modal__mask"></div>
       </div>
     );
   }
