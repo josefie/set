@@ -62,6 +62,8 @@ class Game extends Component {
     this.startGame = this.startGame.bind(this);
     this.addThreeCards = this.addThreeCards.bind(this);
     this.giveHint = this.giveHint.bind(this);
+    this.openInstructions = this.openInstructions.bind(this);
+    this.openCollectedSets = this.openCollectedSets.bind(this);
   }
 
   componentDidMount() {
@@ -298,6 +300,14 @@ class Game extends Component {
     document.getElementById('board').focus();
   }
 
+  openInstructions() {
+    this.instructionsModal.openModal();
+  }
+
+  openCollectedSets() {
+    this.collectedSetsModal.openModal();
+  }
+
   render() {
     const selectedCards = this.state.selectedCards;
     const handleSelectCard = this.handleSelectCard;
@@ -326,8 +336,11 @@ class Game extends Component {
           </div>
           <div className="sidebar">
             <Section title="Your game">
-              <p>Sets: {this.state.sets.length}</p>
-              <Modal id="collected-sets" title="Collected Sets" buttonTitle="View">
+              <p>
+                <span>Sets: {this.state.sets.length}</span>
+                {this.state.sets.length > 0 ? <button className="button button--inline" onClick={this.openCollectedSets} aria-expanded="false" ref={(button) => { this.collectedSetsButton = button; }}>View</button> : null}
+              </p>
+              <Modal id="collected-sets" title="Collected Sets" buttonRef={this.collectedSetsButton} ref={(modal) => { this.collectedSetsModal = modal; }}>
                 {this.state.sets.map(function(set, key) {
                   return (
                     <ul className="flex-list" key={key}>
@@ -340,13 +353,14 @@ class Game extends Component {
                   );
                 })}
               </Modal>
-              <Timer timeElapsed={this.state.timeElapsed}/>
+               <Timer timeElapsed={this.state.timeElapsed}/> 
               <p>Attempts: {this.state.attempts}</p>
               <p>Cards left: {this.getNumberOfCards()}</p>
             </Section>
             <RestartButton onClick={this.startGame} />
             <Section title="Need help?">
-              <Modal title="Instructions" id="instructions">
+              <button className="button" onClick={this.openInstructions} aria-expanded="false" ref={(button) => { this.instructionsButton = button; }}>Instructions</button>
+              <Modal title="Instructions" id="instructions" buttonRef={this.instructionsButton} ref={(modal) => { this.instructionsModal = modal; }}>
                 <p>
                   Set is a real-time card game designed by Marsha Falco in 1974 and published by Set Enterprises in 1991. 
                   The deck consists of 81 cards varying in four features: 

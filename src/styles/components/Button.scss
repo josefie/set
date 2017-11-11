@@ -21,3 +21,20 @@
 .button--big {
   font-size: 1.5em;
 }
+
+.button--inline {
+  display: inline-block;
+  width: auto;
+  background: none;
+  color: #000;
+  text-decoration: underline;
+  padding: 0;
+  margin: 0;
+  margin-left: 1em;
+
+  &:hover,
+  &:focus {
+    background: none;
+    text-decoration: none;
+  }
+}

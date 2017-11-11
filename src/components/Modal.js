@@ -28,11 +28,11 @@ class Modal extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
 
-    this.previouslyFocusedElement = null;
   }
 
   componentDidMount() {
-    
+    this.previouslyFocusedElement = document.activeElement;
+    this.addCloseEvents();
   }
 
   toggleModal() {
@@ -48,6 +48,7 @@ class Modal extends Component {
       isOpen: false
     });
 
+    this.props.buttonRef.setAttribute('aria-expanded', 'false');
     this.previouslyFocusedElement.focus();
   }
 
@@ -55,12 +56,13 @@ class Modal extends Component {
     this.previouslyFocusedElement = document.activeElement;
     this.modal.focus();
 
-    this.addCloseEvents();
     this.trapFocus();
 
     this.setState({
       isOpen: true
     });
+
+    this.props.buttonRef.setAttribute('aria-expanded', 'true');
   }
 
   addCloseEvents() {
@@ -100,10 +102,9 @@ class Modal extends Component {
 
   render() {
     return (
-      <div>
-        <button className="button" aria-expanded={this.state.isOpen} onClick={this.openModal} ref={(button) => { this.button = button; }}>{this.props.buttonTitle || this.props.title}</button>
-        <div id={this.props.id} role="dialog" className="modal" aria-labelledby={this.props.id + '-title'} aria-describedby={this.props.id + '-content'} tabIndex="-1" ref={(modal) => { this.modal = modal; }}>
-          <div className="modal__body">
+      <div className="modal" aria-hidden={!this.state.isOpen}>
+        <div id={this.props.id} role="dialog" className="modal__body" aria-labelledby={this.props.id + '-title'} aria-describedby={this.props.id + '-content'} tabIndex="-1" ref={(modal) => { this.modal = modal; }}>
+          <div className="modal__content">
             <h2 id={this.props.id + '-title'}>{this.props.title}</h2>
             <div id={this.props.id + '-content'}>
               {this.props.children}
@@ -113,7 +114,7 @@ class Modal extends Component {
             <button onClick={this.closeModal} className="button modal__close-button">Close</button>
           </div>
         </div>
-        <div className="modal-mask" ref={(mask) => { this.mask = mask; }}></div>
+        <div className="modal__mask" ref={(mask) => { this.mask = mask; }}></div>
       </div>
     );
   }
