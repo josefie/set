@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Section from './Section.js';
-import RestartButton from './RestartButton.js';
 import Card from './Card.js';
 import Timer from './Timer.js';
 import Message from './Message.js';
@@ -358,7 +357,7 @@ class Game extends React.Component {
               <p>Attempts: {this.state.attempts}</p>
               <p>Cards left: {this.getNumberOfCards()}</p>
             </Section>
-            <RestartButton onClick={this.startGame} />
+            <button className="button button--big" onClick={this.startGame}>New Game</button>
             <Section title="Need help?">
               <button className="button" onClick={this.openInstructions} aria-expanded="false" ref={(button) => { this.instructionsButton = button; }}>Instructions</button>
               <Modal title="Instructions" id="instructions" buttonRef={this.instructionsButton} ref={(modal) => { this.instructionsModal = modal; }}>
