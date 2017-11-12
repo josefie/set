@@ -1,16 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Timer = function({timeElapsed}) {
-  let datetime = new Date(null);
-  datetime.setSeconds(timeElapsed);
-  let timeString = datetime.toLocaleTimeString();
+function addLeadingZeros(number) {
+  return ('0' + number).slice(-2);
+}
 
-  return (
-    <div>
-      Time: <time dateTime={datetime}>{timeString.slice(3, timeString.length)}</time>
-    </div>
-  );
+function formatTime(seconds = 0, minutes = 0, hours = 0) {
+  let timeString = "";
+
+  if (hours > 0) {
+    timeString += addLeadingZeros(hours) + ':';
+  }
+
+  timeString += addLeadingZeros(minutes) + ':' + addLeadingZeros(seconds);
+
+  return timeString;
+}
+
+class Timer extends React.Component {
+
+  render() {
+    let hours = Math.floor(this.props.timeElapsed / 3600);
+    let secondsLeft = this.props.timeElapsed % 3600;
+    let minutes = Math.floor(secondsLeft / 60);
+    let seconds = secondsLeft % 60;
+
+    return (
+      <div>
+        Time: {formatTime(seconds, minutes, hours)}
+      </div>
+    );
+  }
 }
 
 Timer.propTypes = {
