@@ -383,9 +383,9 @@ class Game extends Component {
                   For example, these three cards form a set:
                 </p>
                 <ul className="flex-list">
-                  <li><Card properties={{number: 2, color: 'red', texture: 'solid', shape: 'oval'}}/></li>
-                  <li><Card properties={{number: 2, color: 'green', texture: 'granular', shape: 'oval'}}/></li>
-                  <li><Card properties={{number: 2, color: 'yellow', texture: 'empty', shape: 'oval'}}/></li>
+                  <li><Card properties={{number: 2, color: 'red', texture: 'solid', shape: 'oval'}} id="example-1"/></li>
+                  <li><Card properties={{number: 2, color: 'green', texture: 'granular', shape: 'oval'}} id="example-2"/></li>
+                  <li><Card properties={{number: 2, color: 'yellow', texture: 'empty', shape: 'oval'}} id="example-3"/></li>
                 </ul>
                 <p>
                   Given any two cards from the deck, there is one and only one other card that forms a set with them.
