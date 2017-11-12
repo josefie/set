@@ -1,20 +1,9 @@
 import React, {Component} from 'react';
 
+import KEYCODES from '../helper/KeyCodes.js';
+import ELEMENTS_FOCUSABLE from '../helper/ElementsFocusable.js';
+
 import '../styles/components/Modal.css';
-
-const ELEMENTS_FOCUSABLE = [
-  'a[href]:not([tabindex="-1"])',
-  'button:not([disabled]):not([tabindex="-1"])',
-  'input:not([disabled]):not([tabindex="-1"])',
-  'textarea:not([disabled]):not([tabindex="-1"])',
-  'select:not([disabled]):not([tabindex="-1"])',
-  '[tabindex]:not([tabindex="-1"])'
-];
-
-const KEYCODE = {
-  ESC: 27,
-  TAB: 9
-};
 
 class Modal extends Component {
   constructor() {
@@ -73,7 +62,7 @@ class Modal extends Component {
     document.addEventListener('keyup', (event) => {
       let keyCode = event.keyCode || event.which;
 
-      if (keyCode === KEYCODE.ESC) {
+      if (keyCode === KEYCODES.ESC) {
         this.closeModal();
       }
     });
@@ -86,8 +75,8 @@ class Modal extends Component {
 
     document.addEventListener('keypress', function(event) {
       let keyCode = event.keyCode || event.which;
-      let tabForwards = keyCode === KEYCODE.TAB && !event.shiftKey;
-      let tabBackwards = keyCode === KEYCODE.TAB && event.shiftKey;
+      let tabForwards = keyCode === KEYCODES.TAB && !event.shiftKey;
+      let tabBackwards = keyCode === KEYCODES.TAB && event.shiftKey;
       let activeElement = document.activeElement;
 
       if (tabForwards && activeElement === lastElement) {
