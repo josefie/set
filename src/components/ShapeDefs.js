@@ -1,20 +1,16 @@
 import React from 'react';
 
+import Pattern from './Pattern.js';
+
 import '../styles/components/Shapes.css';
 
 const ShapeDefs = function() {
   return (
     <svg id="shapes" className="shape-defs">
       <defs>
-        <pattern id="pattern-red" patternUnits="userSpaceOnUse" width="30" height="30" className="pattern--red">
-          <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" strokeWidth="200"/>
-        </pattern>
-        <pattern id="pattern-green" patternUnits="userSpaceOnUse" width="30" height="30" className="pattern--green">
-          <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" strokeWidth="200"/>
-        </pattern>
-        <pattern id="pattern-yellow" patternUnits="userSpaceOnUse" width="30" height="30" className="pattern--yellow">
-          <path d="M-1,1 l2,-2M0,4 l4,-4M3,5 l2,-2" strokeWidth="200"/>
-        </pattern>
+        <Pattern color="red" />
+        <Pattern color="green" />
+        <Pattern color="yellow" />
       </defs>
       <defs>
         <g id="oval">
