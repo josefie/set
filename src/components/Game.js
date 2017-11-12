@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Section from './Section.js';
 import RestartButton from './RestartButton.js';
@@ -42,7 +42,7 @@ function getRandomIndex(size) {
   return Math.floor(Math.random() * size);
 }
 
-class Game extends Component {
+class Game extends React.Component {
 
   constructor(props) {
     super(props);
@@ -79,7 +79,8 @@ class Game extends Component {
         this.showMessage('Great! That\'s a set!', true);
         let collectedSet = [];
         for (let i = 0; i < SET_SIZE; i++) {
-          collectedSet.push(this.getCardById(possibleSet[i]));
+          let card = this.getCardById(possibleSet[i]);
+          collectedSet.push(<Card id={card.id} properties={card} />);
         }
         this.addSet(collectedSet);
         this.increaseAttemptsCounter();
@@ -346,7 +347,7 @@ class Game extends Component {
                     <ul className="flex-list" key={key}>
                       {set.map(function(card, key) {
                         return (
-                          <li key={key}><Card properties={card}/></li>
+                          <li key={key}>{card}</li>
                         );
                       })}
                     </ul>
