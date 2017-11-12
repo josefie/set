@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Timer = function({timeElapsed}) {
   let datetime = new Date(null);
@@ -11,6 +12,10 @@ const Timer = function({timeElapsed}) {
     </div>
   );
 }
+
+Timer.propTypes = {
+  timeElapsed: PropTypes.number
+};
 
 Timer.defaultProps = {
   timeElapsed: 0

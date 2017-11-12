@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import KEYCODES from '../helper/KeyCodes.js';
 import ELEMENTS_FOCUSABLE from '../helper/ElementsFocusable.js';
 
 import '../styles/components/Modal.css';
 
-class Modal extends Component {
+class Modal extends React.Component {
   constructor() {
     super();
 
@@ -108,5 +109,10 @@ class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  id: PropTypes.string,
+  buttonRef: PropTypes.object
+};
 
 export default Modal;

@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Shape from './Shape.js';
+import CATEGORIES from '../helper/Categories.js';
 
 import '../styles/components/Card.css';
 
-class Card extends Component {
+class Card extends React.Component {
 
   constructor(props) {
     super(props);
@@ -59,5 +61,21 @@ class Card extends Component {
     );
   }
 }
+
+Card.propTypes = {
+  id: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]).isRequired,
+  properties: PropTypes.shape({
+    number: PropTypes.oneOf(CATEGORIES.number),
+    color: PropTypes.oneOf(CATEGORIES.color),
+    texture: PropTypes.oneOf(CATEGORIES.texture),
+    shape: PropTypes.oneOf(CATEGORIES.shape)
+  }).isRequired,
+  selected: PropTypes.bool,
+  highlighted: PropTypes.bool,
+  onSelectCard: PropTypes.func,
+};
 
 export default Card;
