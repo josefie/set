@@ -1,7 +1,0 @@
-- Game
-	- Message
-	- Card
-	- StatusInfo
-	- Timer
-	- RestartButton
-	- Help
