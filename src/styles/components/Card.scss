@@ -26,14 +26,11 @@
 
   &[aria-pressed="true"] {
     border-color: $grey-dark;
-
-    &:hover,
-    &:focus {
-      background: $grey-light;
-    }
+    border-style: solid;
   }
 }
 
 .card--highlighted {
-  background: #ff8;
+  border-color: $grey-dark;
+  border-style: dashed;
 }
