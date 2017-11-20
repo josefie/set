@@ -1,0 +1,12 @@
+@import "../settings/Breakpoints.scss";
+
+.container {
+
+  @include breakpoint(m) {
+    display: flex;
+    justify-content: center;
+    max-width: 90em; 
+    margin: 0 auto;
+  }
+
+}

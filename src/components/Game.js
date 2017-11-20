@@ -11,7 +11,6 @@ import CardDeck from '../helper/CardDeck.js';
 import CATEGORIES from '../helper/Categories.js';
 import Combinator from '../helper/Combinator.js';
 
-import '../styles/tools/Helper.css';
 import '../styles/components/Button.css';
 
 const SET_SIZE = 3;

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 
-import './styles/generic/Reset.css';
-import './styles/objects/Header.css';
-import './styles/objects/Container.css';
-import './styles/objects/Board.css';
-import './styles/objects/Sidebar.css';
+import './styles/base/Reset.css';
+import './styles/layout/Container.css';
+import './styles/layout/Board.css';
+import './styles/layout/Sidebar.css';
+import './styles/components/Header.css';
+import './styles/helper/Helper.css';
 
 import Game from './components/Game';
 

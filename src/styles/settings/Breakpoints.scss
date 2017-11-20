@@ -1,0 +1,23 @@
+$breakpoints: (
+  xs: 480px,
+  s: 768px,
+  m: 1024px,
+  l: 1400px
+);
+
+// Breakpoint Mixin: use this to create a media query depending on your defined breakpoints
+// $break: breakpoint key
+//
+// Usage: @include breakpoint(large) { /* your style definitions for large screens */ }
+// Note: Define your custom breakpoints in $breakpoint map in _settings.scss
+// Source: http://jdsteinbach.com/css/sass-maps-breakpoint-mixin/
+
+@mixin breakpoint($break) {
+
+  @if map-has-key($breakpoints, $break) {
+      @media (min-width: map-get($breakpoints, $break)) { @content; }
+  }
+  @else {
+    @media (min-width: $break) { @content; }
+  }
+}
