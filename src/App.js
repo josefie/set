@@ -14,6 +14,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
+        <a href="#main" className="visible-on-focus">Skip to main content</a>
         <header className="app-header">
           <h1>Welcome to Set</h1>
         </header>

@@ -15,3 +15,10 @@
     list-style: none;
   }
 }
+
+.visible-on-focus {
+  
+  &:not(:focus) {
+    @extend .visually-hidden;
+  }
+}
