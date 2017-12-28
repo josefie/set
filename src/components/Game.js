@@ -324,7 +324,7 @@ class Game extends React.Component {
     });
 
     return (
-      <main>
+      <main id="main">
         <Message message={this.state.message} type={this.state.type}/>
         <div className="container">
           <ShapeDefs/>
