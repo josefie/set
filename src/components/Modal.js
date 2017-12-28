@@ -101,7 +101,7 @@ class Modal extends React.Component {
             </div>
           </div>
           <div className="modal__footer">
-            <button onClick={this.closeModal} className="button modal__close-button">Close</button>
+            <button onClick={this.closeModal} className="button">Close</button>
           </div>
         </div>
         <div className="modal__mask" ref={(mask) => { this.mask = mask; }}></div>

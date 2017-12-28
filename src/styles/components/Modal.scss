@@ -22,12 +22,12 @@
 .modal__footer {
   padding: 1em;
   background: $green;
-}
 
-.modal__close-button {
-  width: auto;
-  margin-left: auto;
-  margin-bottom: 0;
+  .button {
+    width: auto;
+    margin-left: auto;
+    margin-bottom: 0;
+  }
 }
 
 .modal__mask {
