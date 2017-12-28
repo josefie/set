@@ -18,14 +18,11 @@
   text-align: left;
   box-shadow: $box-shadow-default;
   transition: box-shadow 0.1s, top 0.1s, left 0.1s;
-  position: relative;
 
   &:focus,
   &:hover,
   &[aria-pressed="true"] {
     box-shadow: $box-shadow-strong;
-    top: -1px;
-    left: -1px;
   }
 
   &[aria-pressed="true"] {
