@@ -4,20 +4,77 @@
 
 .sidebar {
   display: block;
-  flex-grow: 1;
-  padding: 2em;
+  overflow: hidden;
+  padding: 2rem;
+  padding-right: 6rem;
   text-align: left;
   background-color: $grey-light;
   border-bottom: 7px solid $grey-dark;
   box-shadow: $box-shadow-default;
+  max-height: 2rem;
+  transition: max-height 0.3s, margin-left 0.3s;
+  position: relative;
   
-  section {
+  .sidebar__toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 2rem;
+    margin: 1rem;
+    padding: 0;
+    border: none;
+    color: $grey-dark;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: none;
+    line-height: 1;
+    
+    &:hover,
+    &:focus {
+      border-top: 3px solid;
+      border-bottom: 3px solid;
+      outline: none;
+    }
+  }
+  
+  .sidebar__content {
+    display: none;
     margin-top: 2rem;
   }
+  
+  &.isOpen {
+    max-height: 100vh;
+
+    .sidebar__content {
+      display: block;
+    }
+  }
+  
+  section {
+    margin-top: 3rem;
+    float: left;
+    width: 50%;
+  }
+  
+  .button--link:not(:last-of-type) {
+    margin-bottom: 1em;
+  }
+  
   
   @include breakpoint(m) {
     border-right: 7px solid $grey-dark;
     border-bottom: none;
-    max-width: 22rem;
+    width: 25rem;
+    margin-left: calc(-19rem + 7px);
+    max-height: none;
+
+    &.isOpen {
+      margin-left: 0;
+    }
+
+    section {
+      float: none;
+      width: 100%;
+    }
   }
 }

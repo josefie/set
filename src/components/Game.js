@@ -62,6 +62,7 @@ class Game extends React.Component {
     this.giveHint = this.giveHint.bind(this);
     this.openInstructions = this.openInstructions.bind(this);
     this.openCollectedSets = this.openCollectedSets.bind(this);
+    this.toggleSidebar = this.toggleSidebar.bind(this);
   }
 
   componentDidMount() {
@@ -307,6 +308,15 @@ class Game extends React.Component {
     this.collectedSetsModal.openModal();
   }
 
+  toggleSidebar() {
+    const sidebarOpenClass = 'isOpen';
+    if (this.sidebar.classList.contains(sidebarOpenClass)) {
+      this.sidebar.classList.remove(sidebarOpenClass);
+    } else {
+      this.sidebar.classList.add(sidebarOpenClass);
+    }
+  }
+
   render() {
     const selectedCards = this.state.selectedCards;
     const handleSelectCard = this.handleSelectCard;
@@ -326,73 +336,76 @@ class Game extends React.Component {
     return (
       <main id="main">
         <div className="container">
-          <div className="sidebar">
-            <button className="button button--big" onClick={this.startGame}>New Game</button>
-            <Section>
-              <h2>
-               <Timer timeElapsed={this.state.timeElapsed}/> 
-              </h2>
-              <p>
-                <span>Sets: {this.state.sets.length}</span>
-                {this.state.sets.length > 0 ? <button className="button button--link button--inline" onClick={this.openCollectedSets} aria-expanded="false" ref={(button) => { this.collectedSetsButton = button; }}>View</button> : null}
-              </p>
-              <Modal id="collected-sets" title="Collected Sets" buttonRef={this.collectedSetsButton} ref={(modal) => { this.collectedSetsModal = modal; }}>
-                {this.state.sets.map(function(set, key) {
-                  return (
-                    <ul className="flex-list" key={key}>
-                      {set.map(function(card, key) {
-                        return (
-                          <li key={key}>{card}</li>
-                        );
-                      })}
-                    </ul>
-                  );
-                })}
-              </Modal>
-              <p>Attempts: {this.state.attempts}</p>
-              <p>Cards left: {this.getNumberOfCards()}</p>
-            </Section>
-            <Section title="Need help?">
-              <button className="button button--link" onClick={this.openInstructions} aria-expanded="false" ref={(button) => { this.instructionsButton = button; }}>Instructions</button>
-              <Modal title="Instructions" id="instructions" buttonRef={this.instructionsButton} ref={(modal) => { this.instructionsModal = modal; }}>
+          <div className="sidebar" ref={(sidebar) => { this.sidebar = sidebar; }}>
+            <button onClick={this.toggleSidebar} className="sidebar__toggle">Menu</button>
+            <div className="sidebar__content">
+              <button className="button button--big" onClick={this.startGame}>New Game</button>
+              <Section>
+                <h2>
+                <Timer timeElapsed={this.state.timeElapsed}/> 
+                </h2>
                 <p>
-                  Set is a real-time card game designed by Marsha Falco in 1974 and published by Set Enterprises in 1991. 
-                  The deck consists of 81 cards varying in four features: 
-                  number (one, two, or three); 
-                  shape (rectangle, squiggle, or oval); 
-                  texture (solid, granular, or empty); 
-                  and color (red, green, or yellow).
-                  Each possible combination of features (e.g. a card with three solid green rectangles) appears precisely once in the deck.
+                  <span>Sets: {this.state.sets.length}</span>
+                  {this.state.sets.length > 0 ? <button className="button button--link button--inline" onClick={this.openCollectedSets} aria-expanded="false" ref={(button) => { this.collectedSetsButton = button; }}>View</button> : null}
                 </p>
-                <p>
-                  A set consists of three cards satisfying all of these conditions:
-                </p>
-                <ul>
-                  <li>They all have the same number or have three different numbers.</li>
-                  <li>They all have the same shape or have three different shapes.</li>
-                  <li>They all have the same texture or have three different textures.</li>
-                  <li>They all have the same color or have three different colors.</li>
-                </ul>
-                <p>
-                  For example, these three cards form a set:
-                </p>
-                <ul className="flex-list">
-                  <li><Card properties={{number: 2, color: 'red', texture: 'solid', shape: 'oval'}} id="example-1"/></li>
-                  <li><Card properties={{number: 2, color: 'green', texture: 'granular', shape: 'oval'}} id="example-2"/></li>
-                  <li><Card properties={{number: 2, color: 'yellow', texture: 'empty', shape: 'oval'}} id="example-3"/></li>
-                </ul>
-                <p>
-                  Given any two cards from the deck, there is one and only one other card that forms a set with them.
-                </p>
-                <p>
-                  <a href="https://en.wikipedia.org/wiki/Set_(game)">Read "Set" on Wikipedia</a>
-                </p>
-                <h3>Goal</h3>
-                <p>The goal is to find as many sets as you can until there are no more sets in the deck.</p>
-              </Modal>
-              <button className="button button--link" onClick={this.addThreeCards}>Add more cards</button> 
-              <button className="button button--link" onClick={this.giveHint}>Give me a hint</button>
-            </Section>
+                <Modal id="collected-sets" title="Collected Sets" buttonRef={this.collectedSetsButton} ref={(modal) => { this.collectedSetsModal = modal; }}>
+                  {this.state.sets.map(function(set, key) {
+                    return (
+                      <ul className="flex-list" key={key}>
+                        {set.map(function(card, key) {
+                          return (
+                            <li key={key}>{card}</li>
+                          );
+                        })}
+                      </ul>
+                    );
+                  })}
+                </Modal>
+                <p>Attempts: {this.state.attempts}</p>
+                <p>Cards left: {this.getNumberOfCards()}</p>
+              </Section>
+              <Section title="Need help?">
+                <button className="button button--link" onClick={this.openInstructions} aria-expanded="false" ref={(button) => { this.instructionsButton = button; }}>Instructions</button>
+                <Modal title="Instructions" id="instructions" buttonRef={this.instructionsButton} ref={(modal) => { this.instructionsModal = modal; }}>
+                  <p>
+                    Set is a real-time card game designed by Marsha Falco in 1974 and published by Set Enterprises in 1991. 
+                    The deck consists of 81 cards varying in four features: 
+                    number (one, two, or three); 
+                    shape (rectangle, squiggle, or oval); 
+                    texture (solid, granular, or empty); 
+                    and color (red, green, or yellow).
+                    Each possible combination of features (e.g. a card with three solid green rectangles) appears precisely once in the deck.
+                  </p>
+                  <p>
+                    A set consists of three cards satisfying all of these conditions:
+                  </p>
+                  <ul>
+                    <li>They all have the same number or have three different numbers.</li>
+                    <li>They all have the same shape or have three different shapes.</li>
+                    <li>They all have the same texture or have three different textures.</li>
+                    <li>They all have the same color or have three different colors.</li>
+                  </ul>
+                  <p>
+                    For example, these three cards form a set:
+                  </p>
+                  <ul className="flex-list">
+                    <li><Card properties={{number: 2, color: 'red', texture: 'solid', shape: 'oval'}} id="example-1"/></li>
+                    <li><Card properties={{number: 2, color: 'green', texture: 'granular', shape: 'oval'}} id="example-2"/></li>
+                    <li><Card properties={{number: 2, color: 'yellow', texture: 'empty', shape: 'oval'}} id="example-3"/></li>
+                  </ul>
+                  <p>
+                    Given any two cards from the deck, there is one and only one other card that forms a set with them.
+                  </p>
+                  <p>
+                    <a href="https://en.wikipedia.org/wiki/Set_(game)">Read "Set" on Wikipedia</a>
+                  </p>
+                  <h3>Goal</h3>
+                  <p>The goal is to find as many sets as you can until there are no more sets in the deck.</p>
+                </Modal>
+                <button className="button button--link" onClick={this.addThreeCards}>Add more cards</button> 
+                <button className="button button--link" onClick={this.giveHint}>Give me a hint</button>
+              </Section>
+            </div>
           </div>
           <ShapeDefs/>
           <div id="board" className="board" tabIndex="-1">
