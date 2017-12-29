@@ -25,6 +25,12 @@ class Modal extends React.Component {
     this.addCloseEvents();
   }
 
+  componentDidUpdate() {
+    if (typeof this.props.buttonRef !== 'undefined') {
+      this.props.buttonRef.setAttribute('aria-expanded', this.state.isOpen);
+    }
+  }
+
   toggleModal() {
     if (this.state.isOpen) {
       this.closeModal();
@@ -37,8 +43,7 @@ class Modal extends React.Component {
     this.setState({
       isOpen: false
     });
-
-    this.props.buttonRef.setAttribute('aria-expanded', 'false');
+    
     this.previouslyFocusedElement.focus();
   }
 
@@ -51,8 +56,6 @@ class Modal extends React.Component {
     this.setState({
       isOpen: true
     });
-
-    this.props.buttonRef.setAttribute('aria-expanded', 'true');
   }
 
   addCloseEvents() {
