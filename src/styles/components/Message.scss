@@ -1,13 +1,16 @@
 @import 'styles/settings/Colors.scss';
+@import 'styles/settings/Defaults.scss';
 
 .message {
-  padding: 1em;
+  padding: 1.3em 1em;
   margin-bottom: 1em;
   border-radius: 1px;
+  font-size: 1.3rem;
   font-weight: bold;
   width: 100%;
   text-align: center;
   background: $green;
+  box-shadow: $box-shadow-default;
 }
 
 .message--negative {

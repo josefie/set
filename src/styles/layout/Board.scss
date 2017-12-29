@@ -1,12 +1,12 @@
 .board {
-   flex-basis: 51em;
-   margin: 0 auto;
+   flex-grow: 3;
 
    ul {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 65rem;
    }
 }

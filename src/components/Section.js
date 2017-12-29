@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 
 const Section = function({title, children}) {
 
+  const sectionTitle = title ? <h2>{title}</h2> : null;
+
   return (
     <section>
-      <h2>{title}</h2>
+      {sectionTitle}
       {children}
     </section>
   );
 }
 
 Section.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.any
 }
 

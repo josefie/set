@@ -17,14 +17,11 @@ class CardDeck {
             card.texture = CATEGORIES.texture[texture];
             card.shape = CATEGORIES.shape[shape];
             cards.push(card);
-
-            // TODO: überschneidungen auslassen
-            // (3*3*3*3) - (3*4) = 69
           }
         }
       }
     }
-
+    
     return cards;
   }
 }

@@ -325,19 +325,16 @@ class Game extends React.Component {
 
     return (
       <main id="main">
-        <Message message={this.state.message} type={this.state.type}/>
         <div className="container">
-          <ShapeDefs/>
-          <div id="board" className="board" tabIndex="-1">
-            <ul>
-              {cards}
-            </ul>
-          </div>
           <div className="sidebar">
-            <Section title="Your game">
+            <button className="button button--big" onClick={this.startGame}>New Game</button>
+            <Section>
+              <h2>
+               <Timer timeElapsed={this.state.timeElapsed}/> 
+              </h2>
               <p>
                 <span>Sets: {this.state.sets.length}</span>
-                {this.state.sets.length > 0 ? <button className="button button--inline" onClick={this.openCollectedSets} aria-expanded="false" ref={(button) => { this.collectedSetsButton = button; }}>View</button> : null}
+                {this.state.sets.length > 0 ? <button className="button button--link button--inline" onClick={this.openCollectedSets} aria-expanded="false" ref={(button) => { this.collectedSetsButton = button; }}>View</button> : null}
               </p>
               <Modal id="collected-sets" title="Collected Sets" buttonRef={this.collectedSetsButton} ref={(modal) => { this.collectedSetsModal = modal; }}>
                 {this.state.sets.map(function(set, key) {
@@ -352,13 +349,11 @@ class Game extends React.Component {
                   );
                 })}
               </Modal>
-               <Timer timeElapsed={this.state.timeElapsed}/> 
               <p>Attempts: {this.state.attempts}</p>
               <p>Cards left: {this.getNumberOfCards()}</p>
             </Section>
-            <button className="button button--big" onClick={this.startGame}>New Game</button>
             <Section title="Need help?">
-              <button className="button" onClick={this.openInstructions} aria-expanded="false" ref={(button) => { this.instructionsButton = button; }}>Instructions</button>
+              <button className="button button--link" onClick={this.openInstructions} aria-expanded="false" ref={(button) => { this.instructionsButton = button; }}>Instructions</button>
               <Modal title="Instructions" id="instructions" buttonRef={this.instructionsButton} ref={(modal) => { this.instructionsModal = modal; }}>
                 <p>
                   Set is a real-time card game designed by Marsha Falco in 1974 and published by Set Enterprises in 1991. 
@@ -395,9 +390,16 @@ class Game extends React.Component {
                 <h3>Goal</h3>
                 <p>The goal is to find as many sets as you can until there are no more sets in the deck.</p>
               </Modal>
-              <button className="button" onClick={this.addThreeCards}>Add more cards</button> 
-              <button className="button" onClick={this.giveHint}>Give me a hint</button>
+              <button className="button button--link" onClick={this.addThreeCards}>Add more cards</button> 
+              <button className="button button--link" onClick={this.giveHint}>Give me a hint</button>
             </Section>
+          </div>
+          <ShapeDefs/>
+          <div id="board" className="board" tabIndex="-1">
+            <Message message={this.state.message} type={this.state.type}/>
+            <ul>
+              {cards}
+            </ul>
           </div>
         </div>
       </main>

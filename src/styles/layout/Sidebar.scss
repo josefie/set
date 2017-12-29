@@ -1,7 +1,23 @@
+@import 'styles/settings/Colors.scss';
+@import 'styles/settings/Defaults.scss';
+@import 'styles/settings/Breakpoints.scss';
+
 .sidebar {
-  flex-basis: 20em;
-  margin: 1em;
+  display: block;
+  flex-grow: 1;
   padding: 2em;
   text-align: left;
-  background-color: #eee; 
+  background-color: $grey-light;
+  border-bottom: 7px solid $grey-dark;
+  box-shadow: $box-shadow-default;
+  
+  section {
+    margin-top: 2rem;
+  }
+  
+  @include breakpoint(m) {
+    border-right: 7px solid $grey-dark;
+    border-bottom: none;
+    max-width: 22rem;
+  }
 }
