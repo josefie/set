@@ -218,13 +218,15 @@ class Game extends React.Component {
   addThreeCards() {
     let nextCards = this.getRandomCards(SET_SIZE);
 
-    this.setState(function(prevState) {
-      return {
-        currentCards: prevState.currentCards.concat(nextCards)
-      };
-    }, function() {
-      document.getElementById('card-' + nextCards[0].id).focus();
-    });
+    if (nextCards.length > 0) {
+      this.setState(function(prevState) {
+        return {
+          currentCards: prevState.currentCards.concat(nextCards)
+        };
+      }, function() {
+        document.getElementById('card-' + nextCards[0].id).focus();
+      });
+    }
   }
 
   getNumberOfCards() {
