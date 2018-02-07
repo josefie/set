@@ -4,5 +4,9 @@
   background-color: $grey-dark;
   padding: 20px;
   color: #FFF;
-  text-align: center;
+  overflow: hidden;
+
+  h1 {
+    display: inline-block;
+  }
 }

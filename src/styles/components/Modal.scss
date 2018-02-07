@@ -1,5 +1,6 @@
 @import "styles/settings/Colors.scss";
 @import "styles/settings/Defaults.scss";
+@import "styles/settings/Breakpoints.scss";
 
 .modal__body {
   position: fixed;
@@ -10,9 +11,17 @@
   overflow: auto;
   background: #FFF;
   max-height: 100%;
-  min-width: 50%;
+  min-width: 95%;
   border-top: $border-radius solid $green;
   border-radius: $border-radius;
+
+  @include breakpoint(m) {
+    min-width: 75%;
+  }
+
+  @include breakpoint(l) {
+    min-width: 50%;
+  }
 }
 
 .modal__content {

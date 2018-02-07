@@ -12,6 +12,8 @@ import CATEGORIES from '../helper/Categories.js';
 import Combinator from '../helper/Combinator.js';
 
 import '../styles/components/Button.css';
+import '../styles/components/GameStatus.css';
+import '../styles/components/Toolbar.css';
 
 const SET_SIZE = 3;
 const BOARD_SIZE = 4 * SET_SIZE;
@@ -53,6 +55,7 @@ class Game extends React.Component {
       attempts: 0,
       timeElapsed: 0,
       message: "Good luck!",
+      type: 'positive',
       highlightedCards: []
     };
 
@@ -124,6 +127,7 @@ class Game extends React.Component {
         attempts: 0,
         timeElapsed: 0,
         message: "Good luck!",
+        type: 'positive',
         highlightedCards: []
       });
     });
@@ -336,15 +340,34 @@ class Game extends React.Component {
     });
 
     return (
-      <main id="main">
-        <div className="container">
-          <div className="sidebar" ref={(sidebar) => { this.sidebar = sidebar; }}>
-            <button onClick={this.toggleSidebar} className="sidebar__toggle">Menu</button>
-            <div className="sidebar__content">
-              <button className="button button--big" onClick={this.startGame}>New Game</button>
+      <div>
+        <header className="app-header">
+          <h1>Set</h1>
+          <div className="toolbar">
+            <button className="toolbar__button button" onClick={this.openInstructions} aria-expanded="false" ref={(button) => { this.instructionsButton = button; }}>
+              <span className="icon-info-circled"></span>
+              <span className="visible-from-m-screen">Instructions</span>
+            </button>
+            <button className="toolbar__button button" onClick={this.addThreeCards}>
+              <span className="icon-plus-circled"></span>
+              <span className="visible-from-m-screen">Add more cards</span>
+            </button> 
+            <button className="toolbar__button button" onClick={this.giveHint}>
+              <span className="icon-help-circled"></span>
+              <span className="visible-from-m-screen">Give me a hint</span>
+            </button>
+            <button className="toolbar__button button button--primary" onClick={this.startGame}>
+              <span className="icon-cw"></span>
+              <span className="visible-from-xs-screen">New Game</span>
+            </button>
+          </div>
+        </header>
+        <main id="main">
+          <div className="container">
+            <div className="game-status">
               <Section>
                 <h2>
-                <Timer timeElapsed={this.state.timeElapsed}/> 
+                  <Timer timeElapsed={this.state.timeElapsed}/> 
                 </h2>
                 <p>
                   <span>Sets: {this.state.sets.length}</span>
@@ -366,58 +389,53 @@ class Game extends React.Component {
                 <p>Attempts: {this.state.attempts}</p>
                 <p>Cards left: {this.getNumberOfCards()}</p>
               </Section>
-              <Section title="Need help?">
-                <button className="button button--link" onClick={this.openInstructions} aria-expanded="false" ref={(button) => { this.instructionsButton = button; }}>Instructions</button>
-                <Modal title="Instructions" id="instructions" buttonRef={this.instructionsButton} ref={(modal) => { this.instructionsModal = modal; }}>
-                  <p>
-                    Set is a real-time card game designed by Marsha Falco in 1974 and published by Set Enterprises in 1991. 
-                    The deck consists of 81 cards varying in four features: 
-                    number (one, two, or three); 
-                    shape (rectangle, squiggle, or oval); 
-                    texture (solid, granular, or empty); 
-                    and color (red, green, or yellow).
-                    Each possible combination of features (e.g. a card with three solid green rectangles) appears precisely once in the deck.
-                  </p>
-                  <p>
-                    A set consists of three cards satisfying all of these conditions:
-                  </p>
-                  <ul>
-                    <li>They all have the same number or have three different numbers.</li>
-                    <li>They all have the same shape or have three different shapes.</li>
-                    <li>They all have the same texture or have three different textures.</li>
-                    <li>They all have the same color or have three different colors.</li>
-                  </ul>
-                  <p>
-                    For example, these three cards form a set:
-                  </p>
-                  <ul className="flex-list">
-                    <li><Card properties={{number: 2, color: 'red', texture: 'solid', shape: 'oval'}} id="example-1"/></li>
-                    <li><Card properties={{number: 2, color: 'green', texture: 'granular', shape: 'oval'}} id="example-2"/></li>
-                    <li><Card properties={{number: 2, color: 'yellow', texture: 'empty', shape: 'oval'}} id="example-3"/></li>
-                  </ul>
-                  <p>
-                    Given any two cards from the deck, there is one and only one other card that forms a set with them.
-                  </p>
-                  <p>
-                    <a href="https://en.wikipedia.org/wiki/Set_(game)">Read "Set" on Wikipedia</a>
-                  </p>
-                  <h3>Goal</h3>
-                  <p>The goal is to find as many sets as you can until there are no more sets in the deck.</p>
-                </Modal>
-                <button className="button button--link" onClick={this.addThreeCards}>Add more cards</button> 
-                <button className="button button--link" onClick={this.giveHint}>Give me a hint</button>
-              </Section>
+            </div>
+            <Modal title="Instructions" id="instructions" buttonRef={this.instructionsButton} ref={(modal) => { this.instructionsModal = modal; }}>
+                <p>
+                  Set is a real-time card game designed by Marsha Falco in 1974 and published by Set Enterprises in 1991. 
+                  The deck consists of 81 cards varying in four features: 
+                  number (one, two, or three); 
+                  shape (rectangle, squiggle, or oval); 
+                  texture (solid, granular, or empty); 
+                  and color (red, green, or yellow).
+                  Each possible combination of features (e.g. a card with three solid green rectangles) appears precisely once in the deck.
+                </p>
+                <p>
+                  A set consists of three cards satisfying all of these conditions:
+                </p>
+                <ul>
+                  <li>They all have the same number or have three different numbers.</li>
+                  <li>They all have the same shape or have three different shapes.</li>
+                  <li>They all have the same texture or have three different textures.</li>
+                  <li>They all have the same color or have three different colors.</li>
+                </ul>
+                <p>
+                  For example, these three cards form a set:
+                </p>
+                <ul className="flex-list">
+                  <li><Card properties={{number: 2, color: 'red', texture: 'solid', shape: 'oval'}} id="example-1"/></li>
+                  <li><Card properties={{number: 2, color: 'green', texture: 'granular', shape: 'oval'}} id="example-2"/></li>
+                  <li><Card properties={{number: 2, color: 'yellow', texture: 'empty', shape: 'oval'}} id="example-3"/></li>
+                </ul>
+                <p>
+                  Given any two cards from the deck, there is one and only one other card that forms a set with them.
+                </p>
+                <p>
+                  <a href="https://en.wikipedia.org/wiki/Set_(game)">Read "Set" on Wikipedia</a>
+                </p>
+                <h3>Goal</h3>
+                <p>The goal is to find as many sets as you can until there are no more sets in the deck.</p>
+            </Modal>
+            <ShapeDefs/>
+            <div id="board" className="board" tabIndex="-1">
+              <Message message={this.state.message} type={this.state.type}/>
+              <ul>
+                {cards}
+              </ul>
             </div>
           </div>
-          <ShapeDefs/>
-          <div id="board" className="board" tabIndex="-1">
-            <Message message={this.state.message} type={this.state.type}/>
-            <ul>
-              {cards}
-            </ul>
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
     );
   }
 }

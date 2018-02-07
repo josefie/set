@@ -1,9 +1,46 @@
+@import "../settings/Breakpoints.scss";
+
 .visually-hidden { /* https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
   position: absolute !important;
   height: 1px; width: 1px; 
   overflow: hidden;
   clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
   clip: rect(1px, 1px, 1px, 1px);
+}
+
+.visible-on-focus {
+
+  &:not(:focus) {
+    @extend .visually-hidden;
+  }
+}
+
+@mixin visible-from($breakpoint) {
+  @extend .visually-hidden;
+  
+  @include breakpoint($breakpoint) {
+    position: static !important;
+    height: auto;
+    width: auto; 
+    overflow: visible;
+    clip: auto;
+  }
+}
+
+.visible-from-xs-screen {
+  @include visible-from(xs);
+}
+
+.visible-from-s-screen {
+  @include visible-from(s);  
+}
+
+.visible-from-m-screen {
+  @include visible-from(m);  
+}
+
+.visible-from-l-screen {
+  @include visible-from(l);  
 }
 
 .flex-list {
@@ -14,12 +51,5 @@
     flex: 1 1 auto;
     margin-right: 1em;
     list-style: none;
-  }
-}
-
-.visible-on-focus {
-  
-  &:not(:focus) {
-    @extend .visually-hidden;
   }
 }

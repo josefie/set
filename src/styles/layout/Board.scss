@@ -1,12 +1,19 @@
-.board {
-   flex-grow: 3;
+@import 'styles/settings/Breakpoints.scss';
+@import 'styles/settings/Defaults.scss';
 
-   ul {
+.board {
+  outline: none;
+  
+  ul {
     margin: 0 auto;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 65rem;
-   }
+    max-width: 85rem;
+
+    @include breakpoint(m) {
+      padding-left: $sidebar-width;
+    }
+  }
 }

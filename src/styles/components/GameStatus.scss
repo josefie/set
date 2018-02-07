@@ -1,0 +1,36 @@
+@import 'styles/settings/Breakpoints.scss';
+@import 'styles/settings/Defaults.scss';
+@import 'styles/settings/Colors.scss';
+
+.game-status {
+  display: block;
+  width: 100%;
+  padding: 25px;
+  background: $grey-light;
+  box-shadow: $box-shadow-default;
+  text-align: center;
+
+  p {
+    display: inline-block;
+    margin-right: 1em;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+  
+  @include breakpoint(m) {
+    position: fixed;
+    top: 25%;
+    left: 0;
+    width: $sidebar-width;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    text-align: left;
+
+    p {
+      display: block;
+      margin-right: 0;
+    }
+  }
+}
