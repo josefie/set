@@ -1,25 +1,5 @@
-@import "../settings/Breakpoints.scss";
-@import "../settings/Defaults.scss";
-
 .toolbar {
   display: inline-block;
   margin-left: 1em;
   float: right;
-}
-
-.toolbar__button {
-  display: inline;
-  margin: 0.6em 0.1em;
-  color: #FFF;
-  font-size: 1.3em;
-  font-weight: bold;
-  padding: 12px;
-
-  span:last-child {
-    margin-left: 0.5em;
-  }
-
-  @include breakpoint(m) {
-    margin: 0.6em;
-  }
 }

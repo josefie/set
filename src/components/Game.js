@@ -1,19 +1,21 @@
 import React from 'react';
 
-import Section from './Section.js';
-import Card from './Card.js';
-import Timer from './Timer.js';
-import Message from './Message.js';
-import ShapeDefs from './ShapeDefs.js';
-import Modal from './Modal.js';
+import Section from './Section';
+import Card from './Card';
+import Timer from './Timer';
+import Message from './Message';
+import ShapeDefs from './ShapeDefs';
+import Toolbar from './Toolbar';
+import CollectedSetsModal from './CollectedSetsModal';
+import InstructionsModal from './InstructionsModal';
+import Button from './Button';
 
-import CardDeck from '../helper/CardDeck.js';
-import CATEGORIES from '../helper/Categories.js';
-import Combinator from '../helper/Combinator.js';
+import CardDeck from '../helper/CardDeck';
+import CATEGORIES from '../helper/Categories';
+import Combinator from '../helper/Combinator';
 
 import '../styles/components/Button.css';
 import '../styles/components/GameStatus.css';
-import '../styles/components/Toolbar.css';
 
 const SET_SIZE = 3;
 const BOARD_SIZE = 4 * SET_SIZE;
@@ -56,7 +58,9 @@ class Game extends React.Component {
       timeElapsed: 0,
       message: "Good luck!",
       type: 'positive',
-      highlightedCards: []
+      highlightedCards: [],
+      instructionsModalIsOpen: true,
+      collectedSetsModalIsOpen: false
     };
 
     this.handleSelectCard = this.handleSelectCard.bind(this);
@@ -65,12 +69,13 @@ class Game extends React.Component {
     this.giveHint = this.giveHint.bind(this);
     this.openInstructions = this.openInstructions.bind(this);
     this.openCollectedSets = this.openCollectedSets.bind(this);
-    this.toggleSidebar = this.toggleSidebar.bind(this);
+    this.closeModalCallback = this.closeModalCallback.bind(this);
   }
 
   componentDidMount() {
     this.startGame();
-    this.interval = setInterval(() => this.tickTimer(), 1000);
+    // FIXME: updates all child components
+    // this.interval = setInterval(() => this.tickTimer(), 1000);
   }
 
   componentDidUpdate() {
@@ -193,7 +198,7 @@ class Game extends React.Component {
       this.setState({
         highlightedCards: []
       });
-      this.showMessage("I couldn't find any set, either! Here are three more cards for you!");
+      this.showMessage("Hmm... you're right, there are no more sets. Here are three more cards for you!");
       this.addThreeCards();
     } else {
       this.setState({
@@ -307,20 +312,18 @@ class Game extends React.Component {
   }
 
   openInstructions() {
-    this.instructionsModal.openModal();
+    this.setState({instructionsModalIsOpen: true});
   }
-
+  
   openCollectedSets() {
-    this.collectedSetsModal.openModal();
+    this.setState({collectedSetsModalIsOpen: true});
   }
 
-  toggleSidebar() {
-    const sidebarOpenClass = 'isOpen';
-    if (this.sidebar.classList.contains(sidebarOpenClass)) {
-      this.sidebar.classList.remove(sidebarOpenClass);
-    } else {
-      this.sidebar.classList.add(sidebarOpenClass);
-    }
+  closeModalCallback() {
+    this.setState({
+      collectedSetsModalIsOpen: false,
+      instructionsModalIsOpen: false
+    });
   }
 
   render() {
@@ -338,29 +341,19 @@ class Game extends React.Component {
       </li>
       );
     });
-
+    
+    const toolbarActions = [
+      <Button key={0} title="Instructions" action={this.openInstructions} modifiers={['inline', 'icon']} icon="info-circled" expanded={this.state.instructionsModalIsOpen}/>,
+      <Button key={1} title="Give me a hint" action={this.giveHint} modifiers={['inline', 'icon']} icon="help-circled" />,
+      <Button key={2} title="Add more cards" action={this.addThreeCards} modifiers={['inline', 'icon']} icon="plus-circled" />,
+      <Button key={3} title="New game" action={this.startGame} modifiers={['inline', 'icon', 'primary']} icon="cw" />
+    ];
+    
     return (
       <div>
         <header className="app-header">
           <h1>Set</h1>
-          <div className="toolbar">
-            <button className="toolbar__button button" onClick={this.openInstructions} aria-expanded="false" ref={(button) => { this.instructionsButton = button; }}>
-              <span className="icon-info-circled"></span>
-              <span className="visible-from-m-screen">Instructions</span>
-            </button>
-            <button className="toolbar__button button" onClick={this.addThreeCards}>
-              <span className="icon-plus-circled"></span>
-              <span className="visible-from-m-screen">Add more cards</span>
-            </button> 
-            <button className="toolbar__button button" onClick={this.giveHint}>
-              <span className="icon-help-circled"></span>
-              <span className="visible-from-m-screen">Give me a hint</span>
-            </button>
-            <button className="toolbar__button button button--primary" onClick={this.startGame}>
-              <span className="icon-cw"></span>
-              <span className="visible-from-xs-screen">New Game</span>
-            </button>
-          </div>
+          <Toolbar actions={toolbarActions}/>
         </header>
         <main id="main">
           <div className="container">
@@ -371,61 +364,14 @@ class Game extends React.Component {
                 </h2>
                 <p>
                   <span>Sets: {this.state.sets.length}</span>
-                  {this.state.sets.length > 0 ? <button className="button button--link button--inline" onClick={this.openCollectedSets} aria-expanded="false" ref={(button) => { this.collectedSetsButton = button; }}>View</button> : null}
+                  {this.state.sets.length > 0 
+                    ? <button className="button button--link button--inline" onClick={this.openCollectedSets} aria-expanded={this.state.collectedSetsModalIsOpen}>View</button> 
+                    : null}
                 </p>
-                <Modal id="collected-sets" title="Collected Sets" buttonRef={this.collectedSetsButton} ref={(modal) => { this.collectedSetsModal = modal; }}>
-                  {this.state.sets.map(function(set, key) {
-                    return (
-                      <ul className="flex-list" key={key}>
-                        {set.map(function(card, key) {
-                          return (
-                            <li key={key}>{card}</li>
-                          );
-                        })}
-                      </ul>
-                    );
-                  })}
-                </Modal>
                 <p>Attempts: {this.state.attempts}</p>
                 <p>Cards left: {this.getNumberOfCards()}</p>
               </Section>
             </div>
-            <Modal title="Instructions" id="instructions" buttonRef={this.instructionsButton} ref={(modal) => { this.instructionsModal = modal; }}>
-                <p>
-                  Set is a real-time card game designed by Marsha Falco in 1974 and published by Set Enterprises in 1991. 
-                  The deck consists of 81 cards varying in four features: 
-                  number (one, two, or three); 
-                  shape (rectangle, squiggle, or oval); 
-                  texture (solid, granular, or empty); 
-                  and color (red, green, or yellow).
-                  Each possible combination of features (e.g. a card with three solid green rectangles) appears precisely once in the deck.
-                </p>
-                <p>
-                  A set consists of three cards satisfying all of these conditions:
-                </p>
-                <ul>
-                  <li>They all have the same number or have three different numbers.</li>
-                  <li>They all have the same shape or have three different shapes.</li>
-                  <li>They all have the same texture or have three different textures.</li>
-                  <li>They all have the same color or have three different colors.</li>
-                </ul>
-                <p>
-                  For example, these three cards form a set:
-                </p>
-                <ul className="flex-list">
-                  <li><Card properties={{number: 2, color: 'red', texture: 'solid', shape: 'oval'}} id="example-1"/></li>
-                  <li><Card properties={{number: 2, color: 'green', texture: 'granular', shape: 'oval'}} id="example-2"/></li>
-                  <li><Card properties={{number: 2, color: 'yellow', texture: 'empty', shape: 'oval'}} id="example-3"/></li>
-                </ul>
-                <p>
-                  Given any two cards from the deck, there is one and only one other card that forms a set with them.
-                </p>
-                <p>
-                  <a href="https://en.wikipedia.org/wiki/Set_(game)">Read "Set" on Wikipedia</a>
-                </p>
-                <h3>Goal</h3>
-                <p>The goal is to find as many sets as you can until there are no more sets in the deck.</p>
-            </Modal>
             <ShapeDefs/>
             <div id="board" className="board" tabIndex="-1">
               <Message message={this.state.message} type={this.state.type}/>
@@ -435,6 +381,8 @@ class Game extends React.Component {
             </div>
           </div>
         </main>
+        <CollectedSetsModal isOpen={this.state.collectedSetsModalIsOpen} onClose={this.closeModalCallback} collectedSets={this.state.sets} />
+        <InstructionsModal isOpen={this.state.instructionsModalIsOpen} onClose={this.closeModalCallback} />
       </div>
     );
   }

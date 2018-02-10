@@ -8,7 +8,12 @@
   flex: 0 1 11em;
 
   @include breakpoint(s) {
-    flex: 0 1 15em;
+    flex-basis: 13em;
+    margin: 1em;
+  }
+
+  @include breakpoint(l) {
+    flex-basis: 15em;
     margin: 1em;
   }
 }

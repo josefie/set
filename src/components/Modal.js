@@ -9,53 +9,32 @@ import '../styles/components/Modal.css';
 class Modal extends React.Component {
   constructor() {
     super();
-
-    this.state = {
-      isOpen: false
-    }
-
-    this.toggleModal = this.toggleModal.bind(this);
+    
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
   }
-
+  
   componentDidMount() {
+    this.setState({isOpen: this.props.isOpen});
     this.previouslyFocusedElement = document.activeElement;
     this.addCloseEvents();
   }
 
   componentDidUpdate() {
-    if (typeof this.props.buttonRef !== 'undefined') {
-      this.props.buttonRef.setAttribute('aria-expanded', this.state.isOpen);
-    }
-  }
-
-  toggleModal() {
-    if (this.state.isOpen) {
-      this.closeModal();
-    } else {
+    if (this.props.isOpen) {
       this.openModal();
     }
   }
-
+  
   closeModal() {
-    this.setState({
-      isOpen: false
-    });
-    
     this.previouslyFocusedElement.focus();
+    this.props.onClose();
   }
 
   openModal() {
     this.previouslyFocusedElement = document.activeElement;
     this.modal.focus();
-
     this.trapFocus();
-
-    this.setState({
-      isOpen: true
-    });
   }
 
   addCloseEvents() {
@@ -92,10 +71,10 @@ class Modal extends React.Component {
       }
     });
   }
-
+  
   render() {
     return (
-      <div className="modal" aria-hidden={!this.state.isOpen}>
+      <div className="modal" aria-hidden={!this.props.isOpen}>
         <div id={this.props.id} role="dialog" className="modal__body" aria-labelledby={this.props.id + '-title'} aria-describedby={this.props.id + '-content'} tabIndex="-1" ref={(modal) => { this.modal = modal; }}>
           <div className="modal__content">
             <h2 id={this.props.id + '-title'}>{this.props.title}</h2>
@@ -115,7 +94,7 @@ class Modal extends React.Component {
 
 Modal.propTypes = {
   id: PropTypes.string,
-  buttonRef: PropTypes.object
+  isOpen: PropTypes.bool
 };
 
 export default Modal;
