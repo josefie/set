@@ -15,6 +15,15 @@ import CATEGORIES from '../helper/Categories';
 import Combinator from '../helper/Combinator';
 import STATUS from '../helper/Status';
 
+import '../styles/base/Base.css';
+import '../styles/layout/Board.css';
+import '../styles/components/Header.css';
+import '../styles/components/Footer.css';
+import '../styles/components/Button.css';
+import '../styles/components/GameStatus.css';
+import '../styles/helper/Helper.css';
+import '../styles/font/fontello/css/fontello.css';
+
 const SET_SIZE = 3;
 const BOARD_SIZE = 4 * SET_SIZE;
 const DECK = CardDeck.create();
@@ -138,6 +147,10 @@ class Game extends React.Component {
       });
     });
 
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    
     this.interval = setInterval(() => this.tickTimer(), 1000);
   }
 
@@ -359,6 +372,7 @@ class Game extends React.Component {
     
     return (
       <div>
+        <a href="#main" className="visible-on-focus">Skip to main content</a>
         <header className="app-header">
           <h1>Set</h1>
           <Toolbar actions={toolbarActions}/>
