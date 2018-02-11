@@ -25,6 +25,10 @@ class Modal extends React.Component {
       this.openModal();
     }
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.isOpen !== this.props.isOpen;
+  }
   
   closeModal() {
     this.previouslyFocusedElement.focus();

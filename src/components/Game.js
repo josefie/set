@@ -74,8 +74,7 @@ class Game extends React.Component {
 
   componentDidMount() {
     this.startGame();
-    // FIXME: updates all child components
-    // this.interval = setInterval(() => this.tickTimer(), 1000);
+    this.interval = setInterval(() => this.tickTimer(), 1000);
   }
 
   componentDidUpdate() {
