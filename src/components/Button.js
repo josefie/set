@@ -5,7 +5,7 @@ import '../styles/components/Button.css';
 
 const BUTTON_STYLES = ['primary', 'inline', 'link', 'icon'];
 
-const Button = function({title, type, action, modifiers = [], icon, expanded}) {
+const Button = function({title, type, action, modifiers, icon, expanded}) {
 
   const isPrimary = modifiers.indexOf('primary') !== -1;
   const hasIcon = !!icon;
@@ -31,6 +31,10 @@ Button.propTypes = {
   modifiers: PropTypes.arrayOf(PropTypes.oneOf(BUTTON_STYLES)),
   icon: PropTypes.string,
   expanded: PropTypes.bool
+}
+
+Button.defaultProps = {
+  modifiers: []
 }
 
 export default Button;

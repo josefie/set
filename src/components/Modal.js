@@ -9,15 +9,18 @@ import Button from './Button';
 import '../styles/components/Modal.css';
 
 class Modal extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isOpen: this.props.isOpen
+    }
     
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
   
   componentDidMount() {
-    this.setState({isOpen: this.props.isOpen});
     this.previouslyFocusedElement = document.activeElement;
     this.addCloseEvents();
   }
@@ -101,6 +104,10 @@ class Modal extends React.Component {
 Modal.propTypes = {
   id: PropTypes.string,
   isOpen: PropTypes.bool
+};
+
+Modal.defaultProps = {
+  isOpen: false
 };
 
 export default Modal;
