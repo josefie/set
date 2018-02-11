@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import '../styles/components/Button.css';
+
 const BUTTON_STYLES = ['primary', 'inline', 'link', 'icon'];
 
 const Button = function({title, type, action, modifiers = [], icon, expanded}) {

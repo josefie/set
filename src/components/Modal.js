@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import KEYCODES from '../helper/KeyCodes.js';
 import ELEMENTS_FOCUSABLE from '../helper/ElementsFocusable.js';
 
+import Button from './Button';
+
 import '../styles/components/Modal.css';
 
 class Modal extends React.Component {
@@ -87,7 +89,7 @@ class Modal extends React.Component {
             </div>
           </div>
           <div className="modal__footer">
-            <button onClick={this.closeModal} className="button">Close</button>
+            <Button action={this.closeModal} title="Close"/>
           </div>
         </div>
         <div className="modal__mask" ref={(mask) => { this.mask = mask; }}></div>
