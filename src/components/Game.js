@@ -95,15 +95,11 @@ class Game extends React.Component {
         }
         this.addSet(collectedSet);
         this.increaseAttemptsCounter();
-        this.removeSetFromCurrentCards(possibleSet);
+        this.replaceCardsWithNewOnes(possibleSet);
         this.unselectAllCards();
         this.setState({
           highlightedCards: []
         });
-
-        if (this.state.currentCards.length < BOARD_SIZE) {
-          this.addThreeCards();
-        }
       } else {
         this.showMessage('Nope, sorry, that\'s not a set. Try again!', STATUS.NEGATIVE);
         this.increaseAttemptsCounter();
@@ -302,7 +298,7 @@ class Game extends React.Component {
     });
   }
 
-  removeSetFromCurrentCards(set) {
+  replaceCardsWithNewOnes(set) {
     let currentCards = this.state.currentCards.slice();
 
     set.forEach(function(cardId) {
@@ -310,8 +306,12 @@ class Game extends React.Component {
       currentCards.splice(index, 1);
     });
     
-    this.setState({
-      currentCards: currentCards
+    this.setState(() => {
+      return {currentCards: currentCards}
+    }, () => {
+      if (this.state.currentCards.length < BOARD_SIZE) {
+        this.addThreeCards();
+      }
     });
   }
 
