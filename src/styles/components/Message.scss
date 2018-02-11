@@ -10,7 +10,7 @@
   font-weight: bold;
   width: 100%;
   text-align: center;
-  background: $green;
+  background: $grey-light;
   box-shadow: $box-shadow-default;
 }
 
@@ -20,4 +20,8 @@
 
 .message--positive {
   background: $green;
+}
+
+.message--neutral {
+  background: $yellow;
 }

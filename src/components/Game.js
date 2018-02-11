@@ -13,6 +13,7 @@ import Button from './Button';
 import CardDeck from '../helper/CardDeck';
 import CATEGORIES from '../helper/Categories';
 import Combinator from '../helper/Combinator';
+import STATUS from '../helper/Status';
 
 import '../styles/components/Button.css';
 import '../styles/components/GameStatus.css';
@@ -57,7 +58,7 @@ class Game extends React.Component {
       attempts: 0,
       timeElapsed: 0,
       message: "Good luck!",
-      type: 'positive',
+      status: STATUS.POSITIVE,
       highlightedCards: [],
       instructionsModalIsOpen: true,
       collectedSetsModalIsOpen: false
@@ -82,7 +83,7 @@ class Game extends React.Component {
       let possibleSet = this.state.selectedCards;
 
       if (this.doCardsMatch(possibleSet)) {
-        this.showMessage('Great! That\'s a set!', true);
+        this.showMessage('Great! That\'s a set!', STATUS.POSITIVE);
         let collectedSet = [];
         for (let i = 0; i < SET_SIZE; i++) {
           let card = this.getCardById(possibleSet[i]);
@@ -100,7 +101,7 @@ class Game extends React.Component {
           this.addThreeCards();
         }
       } else {
-        this.showMessage('Nope, sorry, that\'s not a set. Try again!', false);
+        this.showMessage('Nope, sorry, that\'s not a set. Try again!', STATUS.NEGATIVE);
         this.increaseAttemptsCounter();
         this.unselectAllCards();
         this.setState({
@@ -131,7 +132,7 @@ class Game extends React.Component {
         attempts: 0,
         timeElapsed: 0,
         message: "Good luck!",
-        type: 'positive',
+        status: STATUS.POSITIVE,
         highlightedCards: []
       });
     });
@@ -146,7 +147,7 @@ class Game extends React.Component {
       + numberOfSets + ' set' + (numberOfSets > 1 ? 's' : '') + '. Your average time to find one set was ' 
       + averageTime + ' seconds.';
     
-    this.showMessage(message, true);
+    this.showMessage(message, STATUS.POSITIVE);
   }
 
   handleSelectCard(card) {
@@ -192,12 +193,12 @@ class Game extends React.Component {
         highlightedCards: [randomSetFound[0], randomSetFound[1]]
       });
       
-      this.showMessage('Have a closer look at card ' + this.getPositionInCurrentCards(randomSetFound[0]) + ' and card ' + this.getPositionInCurrentCards(randomSetFound[1]));
+      this.showMessage('Have a closer look at card ' + this.getPositionInCurrentCards(randomSetFound[0]) + ' and card ' + this.getPositionInCurrentCards(randomSetFound[1]), STATUS.NEUTRAL);
     } else if (this.getNumberOfCards() > 0) {
       this.setState({
         highlightedCards: []
       });
-      this.showMessage("Hmm... you're right, there are no more sets. Here are three more cards for you!");
+      this.showMessage("Hmm... you're right, there are no more sets. Here are three more cards for you!", STATUS.NEUTRAL);
       this.addThreeCards();
     } else {
       this.setState({
@@ -262,12 +263,10 @@ class Game extends React.Component {
     });
   }
 
-  showMessage(message, isPositive) {
-    let type = isPositive ? 'positive' : 'negative';
-
+  showMessage(message, type) {
     this.setState({
       message: message,
-      type: type
+      status: type
     });
   }
 
@@ -373,7 +372,7 @@ class Game extends React.Component {
             </div>
             <ShapeDefs/>
             <div id="board" className="board" tabIndex="-1">
-              <Message message={this.state.message} type={this.state.type}/>
+              <Message message={this.state.message} type={this.state.status}/>
               <ul>
                 {cards}
               </ul>
