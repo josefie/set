@@ -75,10 +75,9 @@ class Game extends React.Component {
 
   componentDidMount() {
     this.startGame();
-    this.interval = setInterval(() => this.tickTimer(), 1000);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     if (this.state.selectedCards.length === SET_SIZE) {
       let possibleSet = this.state.selectedCards;
 
@@ -108,6 +107,11 @@ class Game extends React.Component {
           highlightedCards: []
         });
       }
+    } else if (this.getNumberOfCards() === 0 && prevState.currentCards.length !== this.state.currentCards.length) {
+      // look for further sets and finish the game as soon as there are no more sets left 
+      if (this.findSets().length === 0) {
+        this.finishGame();
+      }
     }
   }
 
@@ -126,7 +130,7 @@ class Game extends React.Component {
   startGame() {
     this.setState({cards: DECK.slice()}, function() {
       this.setState({
-        currentCards: this.getRandomCards(12),
+        currentCards: this.getRandomCards(BOARD_SIZE),
         selectedCards: [],
         sets: [],
         attempts: 0,
@@ -136,9 +140,13 @@ class Game extends React.Component {
         highlightedCards: []
       });
     });
+
+    this.interval = setInterval(() => this.tickTimer(), 1000);
   }
 
   finishGame() {
+    clearInterval(this.interval);
+
     const attempts = this.state.attempts;
     const numberOfSets = this.state.sets.length;
     const averageTime = this.state.timeElapsed / this.state.sets.length;
@@ -173,7 +181,7 @@ class Game extends React.Component {
     return ids.indexOf(card) + 1;
   }
 
-  giveHint() {
+  findSets() {
     let combinations = Combinator.getAllCombinations(this.state.currentCards, SET_SIZE);
     let setsInCurrentCards = [];
 
@@ -183,6 +191,11 @@ class Game extends React.Component {
       }
     }
 
+    return setsInCurrentCards;
+  }
+
+  giveHint() {
+    let setsInCurrentCards = this.findSets();
     let numberOfSetsFound = setsInCurrentCards.length;
 
     if (numberOfSetsFound > 0) {
@@ -281,7 +294,7 @@ class Game extends React.Component {
   }
 
   removeSetFromCurrentCards(set) {
-    let currentCards = this.state.currentCards;
+    let currentCards = this.state.currentCards.slice();
 
     set.forEach(function(cardId) {
       let index = currentCards.map((card) => card.id).indexOf(cardId);
