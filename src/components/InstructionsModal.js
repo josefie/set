@@ -40,7 +40,8 @@ const InstructionsModal = function({isOpen, onClose}) {
         Given any two cards from the deck, there is one and only one other card that forms a set with them.
       </p>
       <p>
-        <a href="https://en.wikipedia.org/wiki/Set_(game)">Set on Wikipedia</a>
+        You can find <a href="https://www.setgame.com/instructions">full instructions (in different languages)</a> on the Set Enterprises website
+        or read more about <a href="https://en.wikipedia.org/wiki/Set_(game)">Set on Wikipedia</a>.
       </p>
     </Modal>
   );

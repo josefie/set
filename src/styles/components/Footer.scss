@@ -1,0 +1,15 @@
+@import 'styles/settings/Colors.scss';
+
+.app-footer {
+  background-color: $grey-dark;
+  padding: 20px;
+  margin-top: 4rem;
+  color: #FFF;
+  font-size: 1em;
+  font-weight: 300;
+
+  a {
+    color: $yellow;
+    border-bottom: 1px solid;
+  }
+}

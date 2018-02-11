@@ -15,9 +15,6 @@ import CATEGORIES from '../helper/Categories';
 import Combinator from '../helper/Combinator';
 import STATUS from '../helper/Status';
 
-import '../styles/components/Button.css';
-import '../styles/components/GameStatus.css';
-
 const SET_SIZE = 3;
 const BOARD_SIZE = 4 * SET_SIZE;
 const DECK = CardDeck.create();
@@ -376,7 +373,7 @@ class Game extends React.Component {
                 <p>
                   <span>Sets: {this.state.sets.length}</span>
                   {this.state.sets.length > 0 
-                    ? <button className="button button--link button--inline" onClick={this.openCollectedSets} aria-expanded={this.state.collectedSetsModalIsOpen}>View</button> 
+                    ? <Button title="View" modifiers={['link', 'inline']} action={this.openCollectedSets} expanded={this.state.collectedSetsModalIsOpen}/> 
                     : null}
                 </p>
                 <p>Attempts: {this.state.attempts}</p>
@@ -394,6 +391,10 @@ class Game extends React.Component {
         </main>
         <CollectedSetsModal isOpen={this.state.collectedSetsModalIsOpen} onClose={this.closeModalCallback} collectedSets={this.state.sets} />
         <InstructionsModal isOpen={this.state.instructionsModalIsOpen} onClose={this.closeModalCallback} />
+        <footer role="contentinfo" className="app-footer">
+          <p>Set was invented by Marsha J. Falco in 1974 and published by <a href="https://www.setgame.com/">Set Enterprises</a> in 1991.</p>
+          <p>This app was designed and developed by Josefie Zynga.</p>
+        </footer>
       </div>
     );
   }
