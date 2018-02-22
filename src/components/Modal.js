@@ -86,7 +86,7 @@ class Modal extends React.Component {
       <div className="modal" aria-hidden={!this.props.isOpen}>
         <div id={this.props.id} role="dialog" className="modal__body" aria-labelledby={this.props.id + '-title'} aria-describedby={this.props.id + '-content'} tabIndex="-1" ref={(modal) => { this.modal = modal; }}>
           <div className="modal__content">
-            <h2 id={this.props.id + '-title'}>{this.props.title}</h2>
+            <h2 id={this.props.id + '-title'} className="modal__title">{this.props.title}</h2>
             <div id={this.props.id + '-content'}>
               {this.props.children}
             </div>
